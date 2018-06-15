@@ -1,0 +1,621 @@
+.header2__websearch,
+.header2__nav,
+.navigation-city__info,
+.adv,
+.adlos,
+.rotator,
+.forecasts .tabs,
+.info,
+.footer,
+.header2__left .input,
+.header2__left .button,
+.debug,
+.table__body-cell_type_wind-strength,
+.arrow2_theme_nameplate:before,
+.maps-monitor__play,
+.icon_action_prev,
+.icon_action_next,
+.maps-monitor__button_play,
+.maps-monitor__progress,
+.print_hide,
+.head-menu,
+.navigation-city__controls
+{
+    display: none !important;
+}
+
+.content__top
+{
+    min-height: 0;
+}
+
+.arrow2_theme_nameplate-border,
+.current-weather__col_type_now .icon,
+.alert,
+.alert a
+{
+    background: transparent;
+}
+
+.header2__main
+{
+    border: none;
+}
+
+.weather-table__wind
+{
+    top: 0;
+    left: 0;
+
+    float: left;
+}
+
+.weather-table__head
+{
+    visibility: visible;
+}
+
+.weather-table__body-cell_type_wind
+{
+    text-align: left;
+    white-space: nowrap;
+}
+
+.weather-table__body-cell_type_wind .weather-table__value
+{
+    padding-left: 10px;
+}
+
+.weather-table__body-cell_type_wind abbr
+{
+    top: 0;
+    left: 0;
+
+    display: inline-block;
+
+    width: auto;
+    margin: 0;
+    padding: 0 2px;
+}
+
+.weather-table__body-cell_type_wind .icon,
+.weather-table__wind
+{
+    top: 0;
+    left: 0;
+
+    display: inline-block;
+    float: none;
+
+    margin: 0;
+}
+
+.weather-table__body-cell_type_wind .icon
+{
+    margin: 0 5px;
+}
+
+.weather-table__body-cell_type_icon .icon
+{
+    position: relative;
+    top: 13px;
+}
+
+.forecast-detailed__suntime
+{
+    display: inline-block;
+    float: none;
+
+    width: 30%;
+    min-height: 0;
+    margin: 0 0 20px 20px;
+}
+
+.forecast-detailed__suntime-picture
+{
+    display: none;
+}
+
+.forecast-detailed__sunset
+{
+    position: static;
+
+    display: block;
+
+    width: auto;
+}
+
+.forecast-detailed__sunset .forecast-detailed__value
+{
+    display: inline;
+}
+
+.forecast-detailed__sunset:before
+{
+    content: attr(title)': ';
+}
+
+.forecast-detailed__sunrise
+{
+    display: block;
+
+    width: auto;
+    margin: 0;
+}
+
+.forecast-detailed__sunrise .forecast-detailed__value
+{
+    display: inline;
+}
+
+.forecast-detailed__sunrise:before
+{
+    content: attr(title)': ';
+}
+
+.forecast-detailed__moon
+{
+    display: inline-block;
+    float: none;
+
+    width: 30%;
+    height: auto;
+    margin: 0 0 20px 20px;
+    padding: 0;
+}
+
+.forecast-detailed__moon .icon
+{
+    position: relative;
+}
+
+.forecast-detailed__moon .icon:before
+{
+    position: absolute;
+    top: -2px;
+    left: -28px;
+}
+
+.forecast-detailed__geomagnetic-field
+{
+    display: inline-block;
+    float: none;
+
+    width: 9%;
+    margin: 0 0 20px 20px;
+}
+
+.forecast-brief__item-dayname,
+.forecast-brief__item-day,
+.forecast-brief__item-description,
+.forecast-brief__item-temp-night
+{
+    padding-right: 0;
+}
+
+.forecast-brief__item .icon
+{
+    margin-left: 8px;
+}
+
+.forecast-brief__item-description:before
+{
+    margin-left: 0;
+}
+
+.forecast-brief__item-comment
+{
+    padding-left: 8px;
+}
+
+.forecast-brief__item:first-child .icon
+{
+    margin-left: 0;
+}
+
+.forecast-brief__item:first-child .forecast-brief__item-comment,
+.forecast-brief__item:first-child .forecast-brief__item-temp-day
+{
+    padding-left: 0;
+}
+
+.forecast-brief__item:first-child .forecast-brief__item-temp-night
+{
+    text-indent: 0;
+}
+
+.forecast-detailed
+{
+    margin-top: 50px;
+}
+
+.forecast-detailed__day.ad,
+.forecast-detailed__day-info.ad
+{
+    display: none;
+}
+
+.arrow2_theme_nameplate
+{
+    line-height: 1.66em;
+
+    position: relative;
+    z-index: 2;
+    top: 30px;
+
+    height: 1.66em;
+
+    border: 2px solid #ffca00;
+    border-right-color: #fff;
+}
+
+.forecast-brief__item-temp-night
+{
+    color: #000;
+}
+
+.arrow2_theme_nameplate:after
+{
+    line-height: 1.76em;
+
+    position: absolute;
+    z-index: 0;
+    top: -2px;
+    right: -13px;
+
+    height: 1.76em;
+
+    content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAgCAYAAADJ2fKUAAABLElEQVQ4y5WVLSzFYRSHH9dQruSjGZOMqWYmC4JKskmaptpUxaYKgmaCIJvZ3fA/rz9mt2BTkXwE11x+ygmm3Pe82xufPb/zfpyDDP3ZpUSFVusfJBkL5C4ZizKkxIPu6MqDREWJKwdXIrY5j/isGt0RsCZDKljLhxLTbnvXNf0R26GDmxHbuIxvGZ8yhiO2XT/JnXzolCEZDRlNFYxFbFte20E+VNIn482vYCpyKOsOneRDdaoqePKYs5HaVh1KEm1R6EZ7tLcGzumR8RKKJ2PDgaM8oGBAxoeMHxkTudB26HJ1xqiMpowvJUZya9kPPVhdMOmxGioZzLUchz6hEjMOvCrRG2tjuY1FBfNueVSdak6sDiVuQ81SxrJb7lWnMzYACpaiU+MyZ9T8AhbILSd3sS8lAAAAAElFTkSuQmCC');
+}
+
+.content,
+.tabs-panes
+{
+    clear: both;
+}
+
+.alert,
+.alert a
+{
+    font-weight: 700;
+
+    z-index: 0;
+
+    color: #f30 !important;
+}
+
+.alert a
+{
+    margin: 40px 0 20px;
+
+    border: 1px solid red;
+}
+
+.navigation-city
+{
+    margin-top: 5px;
+}
+
+.title .icon
+{
+    display: none;
+}
+
+.icon:before
+{
+    display: block;
+
+    width: 30px;
+    height: 30px;
+
+    content: '';
+
+    -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+}
+
+.icon_wind:before
+{
+    display: inline-block;
+}
+
+.icon_size_48:before
+{
+    width: 48px;
+    height: 48px;
+}
+
+.icon_thumb_bkn-p-ra-d:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_+ra_d.svg);
+}
+
+.icon_thumb_bkn-p-ra-n:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_+ra_n.svg);
+}
+
+.icon_thumb_bkn-p-sn-d:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_+sn_d.svg);
+}
+
+.icon_thumb_bkn-p-sn-n:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_+sn_n.svg);
+}
+
+.icon_thumb_bkn-m-ra-d:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_-ra_d.svg);
+}
+
+.icon_thumb_bkn-m-ra-n:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_-ra_n.svg);
+}
+
+.icon_thumb_bkn-m-sn-d:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_-sn_d.svg);
+}
+
+.icon_thumb_bkn-m-sn-n:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_-sn_n.svg);
+}
+
+.icon_thumb_bkn-d:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_d.svg);
+}
+
+.icon_thumb_bkn-n:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_n.svg);
+}
+
+.icon_thumb_bkn-ra-d:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_ra_d.svg);
+}
+
+.icon_thumb_bkn-ra-n:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_ra_n.svg);
+}
+
+.icon_thumb_bkn-sn-d:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_sn_d.svg);
+}
+
+.icon_thumb_bkn-sn-n:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/bkn_sn_n.svg);
+}
+
+.icon_thumb_ovc:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc.svg);
+}
+
+.icon_thumb_ovc-p-ra:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc_+ra.svg);
+}
+
+.icon_thumb_ovc-p-sn:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc_+sn.svg);
+}
+
+.icon_thumb_ovc-m-ra:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc_-ra.svg);
+}
+
+.icon_thumb_ovc-m-sn:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc_-sn.svg);
+}
+
+.icon_thumb_ovc-ra:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc_ra.svg);
+}
+
+.icon_thumb_ovc-ra-sn:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc_ra_sn.svg);
+}
+
+.icon_thumb_ovc-sn:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc_sn.svg);
+}
+
+.icon_thumb_ovc-ts-ra:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/ovc_ts_ra.svg);
+}
+
+.icon_thumb_skc-d:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/skc_d.svg);
+}
+
+.icon_thumb_skc-n:before
+{
+    content: url(//yastatic.net/weather/i/icons/blueye/color/svg/skc_n.svg);
+}
+
+.icon_thumb_wnd:before
+{
+    content: url(//yastatic.net/weather/i/icons/svg/wnd.svg);
+}
+
+.icon_thumb_water
+{
+    background: transparent;
+}
+
+.icon_thumb_water:before
+{
+    line-height: 20px;
+
+    width: 20px;
+    height: 20px;
+
+    content: url(//yastatic.net/weather/i/icons/svg/water.svg);
+}
+
+.icon_moon_1:before
+{
+    content: url(//yastatic.net/weather/i/moon/1.svg);
+}
+
+.icon_moon_1:before
+{
+    content: url(//yastatic.net/weather/i/moon/1.svg);
+}
+
+.icon_moon_2:before
+{
+    content: url(//yastatic.net/weather/i/moon/2.svg);
+}
+
+.icon_moon_3:before
+{
+    content: url(//yastatic.net/weather/i/moon/3.svg);
+}
+
+.icon_moon_4:before
+{
+    content: url(//yastatic.net/weather/i/moon/4.svg);
+}
+
+.icon_moon_5:before
+{
+    content: url(//yastatic.net/weather/i/moon/5.svg);
+}
+
+.icon_moon_6:before
+{
+    content: url(//yastatic.net/weather/i/moon/6.svg);
+}
+
+.icon_moon_7:before
+{
+    content: url(//yastatic.net/weather/i/moon/7.svg);
+}
+
+.icon_moon_8:before
+{
+    content: url(//yastatic.net/weather/i/moon/8.svg);
+}
+
+.icon_moon_9:before
+{
+    content: url(//yastatic.net/weather/i/moon/9.svg);
+}
+
+.icon_moon_10:before
+{
+    content: url(//yastatic.net/weather/i/moon/10.svg);
+}
+
+.icon_moon_11:before
+{
+    content: url(//yastatic.net/weather/i/moon/11.svg);
+}
+
+.icon_moon_12:before
+{
+    content: url(//yastatic.net/weather/i/moon/12.svg);
+}
+
+.icon_moon_13:before
+{
+    content: url(//yastatic.net/weather/i/moon/13.svg);
+}
+
+.icon_moon_14:before
+{
+    content: url(//yastatic.net/weather/i/moon/14.svg);
+}
+
+.icon_moon_15:before
+{
+    content: url(//yastatic.net/weather/i/moon/15.svg);
+}
+
+.icon_moon_16:before
+{
+    content: url(//yastatic.net/weather/i/moon/16.svg);
+}
+
+.current-weather__water .icon_thumb_water
+{
+    top: -5px;
+}
+
+.current-weather__water
+{
+    vertical-align: top;
+}
+
+.current-weather__info-label,
+.current-weather__info-row_type_time
+{
+    color: #333;
+}
+
+.current-weather__col_type_after .icon
+{
+    margin-bottom: 22px;
+}
+
+.current-weather__col_type_now .icon
+{
+    top: 0;
+    left: 6px;
+}
+
+.icon_wind_e:before,
+.icon_wind_ene:before,
+.icon_wind_ese:before,
+.icon_wind_n:before,
+.icon_wind_ne:before,
+.icon_wind_nne:before,
+.icon_wind_nnw:before,
+.icon_wind_nw:before,
+.icon_wind_s:before,
+.icon_wind_se:before,
+.icon_wind_sse:before,
+.icon_wind_ssw:before,
+.icon_wind_sw:before,
+.icon_wind_w:before,
+.icon_wind_wnw:before,
+.icon_wind_wsw:before
+{
+    width: 11px;
+    height: 11px;
+
+    content: url('data:image/svg+xml;base64,PHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMSAxMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pbllNaWQiIHZpZXdCb3g9IjAgMCAxMSAxMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNS41IDFMOSAxMCA1LjUgNy43OTYgMiAxMHoiIGZpbGw9IiM2RTcxN0EiLz48L3N2Zz4=');
+}
+
+.copyright-tech
+{
+    padding-right: 0;
+}
+
+.menu_theme_maps .menu__item_state_current .link_pseudo_yes .link__inner
+{
+    border-bottom: 1px dotted #000;
+}
+
+.i-ua_js_yes .link_pseudo_yes .link__inner
+{
+    border-bottom-color: transparent;
+}
