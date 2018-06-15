@@ -21,28 +21,39 @@ def get_html(url, useragent=None, proxy=None):
     return html
 
 
-def get_proxies():
-    """Возвращает обновленный список прокси"""
-    print("Получение списка прокси.....")
-    url = 'https://proxylist.me/?avalibity=90&protocol=&sort=-updated&filtrar=Filtrar&type=&city__state__country__name='
-    html = requests.get(url).text
-    soup = BeautifulSoup(html, 'html.parser')
+def pick_proxy():
+    """Получает обновленный список прокси и возвращает один любой из них"""
+    global picked_proxy, proxies
 
-    table = soup.find('table')
-    td = table.findAll('td', class_='ip')
+    print('Выбор прокси для подключения....')
 
-    proxies = []
-    for i in td:
-        proxies.append(i.text.strip())
+    if 'picked_proxy' not in globals():
+        print("Получение списка прокси.....")
+        url = 'https://proxylist.me/?avalibity=90&protocol=&sort=-updated&filtrar=Filtrar&type=&city__state__country__name='
+        html = requests.get(url).text
+        soup = BeautifulSoup(html, 'html.parser')
 
-    ports = []
-    for i in soup.findAll('td', class_='port'):
-        ports.append(i.text.strip())
+        table = soup.find('table')
+        td = table.findAll('td', class_='ip')
 
-    for i in range(len(proxies)):
-        proxies[i] = proxies[i] + ":" + str(ports[i])
-        # print(proxies[i])
-    return proxies
+        # поиск значений прокси
+        proxies = []
+        for i in td:
+            proxies.append(i.text.strip())
+
+        # поиск значений портов
+        ports = []
+        for i in soup.findAll('td', class_='port'):
+            ports.append(i.text.strip())
+
+        # слияние ip и портов
+        for i in range(len(proxies)):
+            proxies[i] = proxies[i] + ":" + str(ports[i])
+            # print(proxies[i])
+    picked_proxy = choice(proxies)
+    print("Выбранный новый прокси : ", picked_proxy)
+    print()
+    return picked_proxy
 
 
 def get_user_agents(proxy):
@@ -72,20 +83,24 @@ def get_my_ip_and_user_agent(proxy, useragent):
 
     print('my ip: ', ip)
     print(user_agent)
+    print('Соединение успешно.')
     return ip, user_agent
 
 
 def pick_user_agent(proxy):
-    """Вызывает функцию получения списков агентов и возвращает одного из них. В случае """
-    global picked_agent, picked_proxy
+    """Вызывает функцию получения списков агентов и возвращает одного из них.
+     В случае если нет подключения, пробует новый прокси"""
+    # global picked_agent, picked_proxy
     try:
         print("Попытка получить user agent....")
         picked_agent = choice(get_user_agents(proxy=proxy))
-    except AttributeError:
+        print('Выбранный User Agent: ', picked_agent)
+        print()
+    except:
         a = uniform(2, 5)
-        print("прокси недоступен, ждем ", a, "секунд.....")
+        print("Попытка не удалась. Ждем ", a, "секунд.....")
         sleep(a)
-        picked_proxy = choice(get_proxies())
+        picked_proxy = pick_proxy()
         print('Новый прокси: ', picked_proxy, '.....')
         pick_user_agent(picked_proxy)
     return picked_agent
@@ -94,27 +109,25 @@ def pick_user_agent(proxy):
 def connection_check(proxy, useragent):
     # todo Разобраться в необходимости этой функции и обработки исключения
     """Функция проверки статуса соединения"""
+    print('Проверка свойств соединения....')
     try:
         get_my_ip_and_user_agent(proxy=proxy, useragent=useragent)
-    except AttributeError:
+    except:
+        print('Соединение не удалось. Reconnect.....')
+        print('Смена прокси....')
         sleep(uniform(2, 4))
+        proxy = pick_proxy()
+        useragent = pick_user_agent(proxy)
         connection_check(proxy, useragent)
 
 
-def smart_request():
+def get():
     """Основаная функция подключения"""
-    print('Выбор прокси для подключения....')
-    picked_proxy = choice(get_proxies())
-    print("Выбранный прокси: ", picked_proxy)
-    print()
-
+    picked_proxy = pick_proxy()
     picked_agent = pick_user_agent(picked_proxy)
-    print('Выбранный User Agent: ', picked_agent)
-    print()
-
     connection_check(picked_proxy, picked_agent)
 
 
-smart_request()
+get()
 
 # 'http://sitespy.ru/my-ip'
