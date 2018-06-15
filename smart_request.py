@@ -13,7 +13,8 @@ from time import sleep
 
 
 def get_html(url, useragent=None, proxy=None):
-    """получение странички через прокси с маскировкой под юзер агента"""
+    """получение странички через прокси с маскировкой под юзер агента.
+    Так же выводит статус подключения к сайту"""
     html = requests.get(url, headers={'User-Agent': useragent}, proxies={'http': 'http://' + proxy})
     print('Подключение через прокси: ', proxy)
     print('Статус запроса:', url, ': ', html.status_code)
@@ -108,7 +109,7 @@ def pick_user_agent(proxy):
 
 def connection_check(proxy, useragent):
     # todo Разобраться в необходимости этой функции и обработки исключения
-    """Функция проверки статуса соединения"""
+    """Функция проверки статуса соединения. Если нет соединения, меняет прокси и агент"""
     print('Проверка свойств соединения....')
     try:
         get_my_ip_and_user_agent(proxy=proxy, useragent=useragent)
@@ -121,13 +122,17 @@ def connection_check(proxy, useragent):
         connection_check(proxy, useragent)
 
 
-def get():
+def get(url):
     """Основаная функция подключения"""
     picked_proxy = pick_proxy()
     picked_agent = pick_user_agent(picked_proxy)
     connection_check(picked_proxy, picked_agent)
+    html = get_html(url, proxy=picked_proxy, useragent=picked_agent)
+    return html
 
 
-get()
+if __name__ == '__main__':
+    url = 'http://rambler.ru'
+    html = get(url)
 
 # 'http://sitespy.ru/my-ip'
