@@ -7,6 +7,7 @@ from time import sleep
 
 
 # todo Попробовать импортировать в парсеры погодных сервисов.
+# todo Написать обработку слишком долгого соединения. Как вариант использовать второй поток, считающий время
 
 
 def get_html(url_get, useragent=None, proxy=None):
@@ -107,6 +108,7 @@ def pick_user_agent(proxy):
 
 def connection_check(proxy, useragent):
     """Функция проверки статуса соединения. Если нет соединения, меняет прокси и агент"""
+    global picked_proxy, picked_agent
     print('Проверка свойств соединения....')
     try:
         get_my_ip_and_user_agent(proxy=proxy, useragent=useragent)
@@ -114,12 +116,12 @@ def connection_check(proxy, useragent):
         print('Соединение не удалось. Reconnect.....')
         print('Смена прокси....')
         sleep(uniform(2, 4))
-        proxy = pick_proxy()
-        useragent = pick_user_agent(proxy)
-        connection_check(proxy, useragent)
+        picked_proxy = pick_proxy()
+        picked_agent = pick_user_agent(proxy)
+        connection_check(picked_proxy, picked_agent)
 
 
-def get(url):
+def smart_get_html(url):
     """Основаная функция подключения"""
     picked_proxy = pick_proxy()
     picked_agent = pick_user_agent(picked_proxy)
@@ -130,6 +132,6 @@ def get(url):
 
 if __name__ == '__main__':
     url_outer = 'http://rambler.ru'
-    html_outer = get(url_outer)
+    html_outer = smart_get_html(url_outer)
 
 # 'http://sitespy.ru/my-ip'

@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import datetime
+import smart_request
 
 
 # TODO Добавить чтение файла с нета. Возможно, написать отдельный модуль для этого.
@@ -8,11 +9,15 @@ import datetime
 def yaParser():
     global info
 
-    # чтение файла с указанием его кодировки. Обработка исключения, если запускается на домашнем компе (другой путь файла)
-    try:
-        html = open('C:\\Users\\a.ryadinskih\YandexDisk\YaDiscPyProjects\Project_1\\Yandex.htm', encoding='utf-8').read()
-    except FileNotFoundError:
-        html = open('C:\\Users\\Asher\YandexDisk\YaDiscPyProjects\Project_1\\Yandex.htm', encoding='utf-8').read()
+    # чтение страницы с инета при помощи модуля smart_request
+    html = smart_request.smart_get_html('https://yandex.ru/pogoda/moscow')
+
+    # чтение файла с указанием его кодировки. Обработка исключения, если
+    # запускается на домашнем компе (другой путь файла)
+    # try:
+    #     html = open('C:\\Users\\a.ryadinskih\YandexDisk\YaDiscPyProjects\Project_1\\Yandex.htm', encoding='utf-8').read()
+    # except FileNotFoundError:
+    #     html = open('C:\\Users\\Asher\YandexDisk\YaDiscPyProjects\Project_1\\Yandex.htm', encoding='utf-8').read()
 
     # создание объекта Soup
     soup = BeautifulSoup(html, 'html.parser')
@@ -40,18 +45,19 @@ def yaParser():
         date[i] = date[i].split('+', 1)[:1]          # отбросить указание часового пояса
         date[i] = str(date[i])[2:]                   # отбросить ['
         date[i] = str(date[i])[:16]                  # отбросить ']
-        date[i] = datetime.datetime.strptime(str(date[i]), "%Y-%m-%d %H:%M")   # преобразование даты в формат даты модуля datetime
+        date[i] = datetime.datetime.strptime(str(date[i]), "%Y-%m-%d %H:%M")   # преобразование даты в формат даты
+                                                                               # модуля datetime
         temps_day.append(temps[i*2].text)          # разбиение на списки дневных и ночных температур
         temps_night.append(temps[i*2+1].text)        #
         info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_day[i]) + ' ' + str(temps_night[i]))
-        # print(info[i])
+        print(info[i])
 
 
 if __name__ == '__main__':
     yaParser()
 
 
-
 # классы и теги, которые необходимо было спарсить
 # <time class="time forecast-briefly__date" datetime="2018-06-05 00:00+0300">5 июня</time>
 # <span class="temp__value">+14</span>
+# сайтп парсинга: 'https://yandex.ru/pogoda/moscow'
