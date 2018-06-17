@@ -1,33 +1,30 @@
 import requests
 from bs4 import BeautifulSoup
+import smart_request
 
+html = smart_request.smart_get_html('http://www.gismeteo.ru/weather-moscow-4368/tomorrow/')
 
-def month_from_ru_to_eng(month):
-    out = ''
-    if month == 'января': out = 'jan'
-    if month == 'декабря': out = 'dec'
-    if month == 'февраля': out = 'feb'
-    if month == 'марта': out = 'mar'
-    if month == 'апреля': out = 'apr'
-    if month == 'мая': out = 'may'
-    if month == 'июня': out = 'jun'
-    if month == 'июня': out = 'jul'
-    if month == 'августа': out = 'aug'
-    if month == 'сентябся': out = 'sep'
-    if month == 'октября': out = 'oct'
-    if month == 'ноября': out = 'nov'
-    if month == 'декабря': out = 'dec'
-    return out
+# html = requests.get('https://www.gismeteo.ru/weather-moscow-4368/tomorrow/').text
 
-
-# a = month_from_ru_to_eng('января')
-# print(a)
-
-
-html = requests.get('http://sitespy.ru/my-ip').text
+# создание объекта Soup
 soup = BeautifulSoup(html, 'html.parser')
-ip = soup.find('span', class_='ip').text.strip()
-user_agent = soup.find('span', class_='ip').find_next_sibling('span').text.strip()
 
-print('my ip: ', ip)
-print(user_agent)
+# поиск тегов 'time' и 'span' нужных классов
+days = soup.findAll('div', class_='c43595192c3')
+temps = soup.findAll('div', class_='aa03387e397')
+
+print(days)
+print(temps)
+
+# отсеивание лишних дат
+days = days[::2]
+days = days[1:]
+
+for i in days:
+    print(i)
+
+# отвеивание лишних температур
+temps = temps[2:6]
+
+for i in temps:
+    print(i)

@@ -84,13 +84,13 @@ def get_my_ip_and_user_agent(proxy, useragent):
     print('my ip: ', ip)
     print(user_agent)
     print('Соединение успешно.')
-    return ip, user_agent
+
 
 
 def pick_user_agent(proxy):
     """Вызывает функцию получения списков агентов и возвращает одного из них.
      В случае если нет подключения, пробует новый прокси"""
-    # global picked_agent, picked_proxy
+    global picked_agent, picked_proxy
     try:
         print("Попытка получить user agent....")
         picked_agent = choice(get_user_agents(proxy=proxy))
@@ -102,7 +102,7 @@ def pick_user_agent(proxy):
         sleep(a)
         picked_proxy = pick_proxy()
         print('Новый прокси: ', picked_proxy, '.....')
-        pick_user_agent(picked_proxy)
+        picked_agent = pick_user_agent(picked_proxy)
     return picked_agent
 
 
@@ -117,12 +117,13 @@ def connection_check(proxy, useragent):
         print('Смена прокси....')
         sleep(uniform(2, 4))
         picked_proxy = pick_proxy()
-        picked_agent = pick_user_agent(proxy)
+        picked_agent = pick_user_agent(picked_proxy)
         connection_check(picked_proxy, picked_agent)
 
 
 def smart_get_html(url):
     """Основаная функция подключения"""
+    global picked_proxy, picked_agent
     picked_proxy = pick_proxy()
     picked_agent = pick_user_agent(picked_proxy)
     connection_check(picked_proxy, picked_agent)
