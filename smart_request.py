@@ -9,14 +9,14 @@ from time import sleep
 # todo Попробовать импортировать в парсеры погодных сервисов.
 
 
-def get_html(url, useragent=None, proxy=None):
+def get_html(url_get, useragent=None, proxy=None):
     """получение странички через прокси с маскировкой под юзер агента.
     Так же выводит статус подключения к сайту"""
-    html = requests.get(url, headers={'User-Agent': useragent}, proxies={'http': 'http://' + proxy})
+    got_html = requests.get(url_get, headers={'User-Agent': useragent}, proxies={'http': 'http://' + proxy})
     print('Подключение через прокси: ', proxy)
-    print('Статус запроса:', url, ': ', html.status_code)
-    html = html.text
-    return html
+    print('Статус запроса:', url_get, ': ', got_html.status_code)
+    got_html = got_html.text
+    return got_html
 
 
 def pick_proxy():
@@ -27,8 +27,9 @@ def pick_proxy():
 
     if 'picked_proxy' not in globals():
         print("Получение списка прокси.....")
-        url = 'https://proxylist.me/?avalibity=90&protocol=&sort=-updated&filtrar=Filtrar&type=&city__state__country__name='
-        html = requests.get(url).text
+        url_proxy_site = 'https://proxylist.me/?avalibity=90&protocol=&sort=-updated&filtrar=Filtrar&type=&city' \
+                         '__state__country__name='
+        html = requests.get(url_proxy_site).text
         soup = BeautifulSoup(html, 'html.parser')
 
         table = soup.find('table')
@@ -128,7 +129,7 @@ def get(url):
 
 
 if __name__ == '__main__':
-    url = 'http://rambler.ru'
-    html = get(url)
+    url_outer = 'http://rambler.ru'
+    html_outer = get(url_outer)
 
 # 'http://sitespy.ru/my-ip'
