@@ -3,6 +3,8 @@ import YaParser
 import datetime
 import gismeteo_parser
 
+"""Модуль с основным интерфейсом. Он же основной управляющий модуль"""
+
 
 def click_ya():
     YaParser.yaParser()

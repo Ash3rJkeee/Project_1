@@ -52,21 +52,21 @@ def gismeteo_parser():
     soup = BeautifulSoup(html, 'html.parser')
 
     # поиск тегов 'time' и 'span' нужных классов
-    days = soup.findAll('div', class_='c43595192c3')
-    temps = soup.findAll('div', class_='aa03387e397')
+    days = soup.findAll('div', class_='date')
+    temps = soup.findAll('div', class_='value')
 
     # отсеивание лишних дат
     days = days[::2]
     days = days[1:]
 
-    for i in days:
-        print(i)
+    # for i in days:
+    #     print(i)
 
     # отвеивание лишних температур
     temps = temps[2:6]
 
-    for i in temps:
-        print(i)
+    # for i in temps:
+    #     print(i)
 
     # заготовка списков
     date = []
@@ -76,7 +76,7 @@ def gismeteo_parser():
 
     for i in [0, 1]:
         date.append(transform_to_date(days[i].text))
-        print(date[i])
+        # print(date[i])
         temps_night.append(temps[i*2].text)
         temps_day.append(temps[i*2+1].text)
         info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_day[i]) + ' ' + str(temps_night[i]))
@@ -92,11 +92,11 @@ if __name__ == '__main__':
 
 # <div class="eeac4214ba5">Пн, 11 июня </div>
 # Дата 2
-# <div class="c43595192c3">Пн, 18 июня </div>
+# <div class="date">Пн, 18 июня </div>
 
 # макс температура
 # < div class ="c2c0b7a7a57" style="top: 0px; width: 50%;" > +19 < / div >
 # мин температура
 # < div class ="c2c0b7a7a57" style="top: 16px; width: 50%;" > +7 < / div >
 # температура 2
-# <div class="aa03387e397" style="top: 16px; width: 50%;">+14</div>
+# <div class="value" style="top: 16px; width: 50%;">+14</div>
