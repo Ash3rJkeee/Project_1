@@ -28,7 +28,7 @@ def transform_to_date(day):
     day = day.strip()
     day = day.split(',')[1]
     day = day[1:]
-    day = day[:2] + " " + month_from_ru_to_eng(day.split(' ')[1])
+    day = day.split(' ')[0] + " " + month_from_ru_to_eng(day.split(' ')[1])
     day = datetime.datetime.strptime(day, '%d %b')
     day = day.replace(year=datetime.datetime.today().year)     # переприсвоение года
     return day
