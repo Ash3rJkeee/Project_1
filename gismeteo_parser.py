@@ -79,7 +79,7 @@ def gismeteo_parser():
         # print(date[i])
         temps_night.append(temps[i*2].text)
         temps_day.append(temps[i*2+1].text)
-        info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_day[i]) + ' ' + str(temps_night[i]))
+        info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
 
 

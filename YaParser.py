@@ -3,9 +3,6 @@ import datetime
 import smart_request
 
 
-# TODO убрать вывод сегодняшней температуры
-
-
 def yaParser():
     global info
 
@@ -27,8 +24,23 @@ def yaParser():
     temps = soup.findAll('span', class_='temp__value')
 
     # отбрасывание лишних данных от результата парсинга
-    del temps[0:3]
-    del temps[6:]
+
+    # отснивание сегодняшней и лишних дат
+    days = days[1:3]
+
+    # отсеивание лишних температур
+    del temps[0:5]
+    del temps[4:]
+
+    # проверка содержимого days и temps
+    # for i in range(len(days)):
+    #     print(days[i].text)
+    #
+    # for i in range(len(temps)):
+    #     print(temps[i].text)
+
+
+
 
     # заготовка списков
     date = []
@@ -40,7 +52,7 @@ def yaParser():
     # today = datetime.date.today()
     # print('Сегодня: ', today)
 
-    for i in [0, 1, 2]:
+    for i in [0, 1]:
         date.append(days[i].get('datetime'))
         date[i] = date[i].split('+', 1)[:1]          # отбросить указание часового пояса
         date[i] = str(date[i])[2:]                   # отбросить ['
@@ -49,7 +61,7 @@ def yaParser():
                                                                                # модуля datetime
         temps_day.append(temps[i*2].text)          # разбиение на списки дневных и ночных температур
         temps_night.append(temps[i*2+1].text)        #
-        info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_day[i]) + ' ' + str(temps_night[i]))
+        info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
 
 
