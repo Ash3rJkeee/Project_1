@@ -35,7 +35,7 @@ def transform_to_date(day):
 
 
 def gismeteo_parser():
-    global info
+    global info, date, temps_night, temps_day
 
     # чтение страницы с инета при помощи модуля smart_request
     html = smart_request.smart_get_html('https://www.gismeteo.ru/weather-moscow-4368/tomorrow/')
@@ -79,7 +79,10 @@ def gismeteo_parser():
         # print(date[i])
         temps_night.append(temps[i*2].text)
         temps_day.append(temps[i*2+1].text)
-        info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
+        date[i] = date[i].date()
+
+        # формирование переменной для вывода в GUI
+        info.append('Температура ' + str(date[i]) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
 
 

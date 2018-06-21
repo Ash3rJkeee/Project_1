@@ -6,14 +6,13 @@ from time import sleep
 """Модуль содержит функцию для анонимного подключения к сайтам парсинга"""
 
 
-# todo Попробовать импортировать в парсеры погодных сервисов.
 # todo Написать обработку слишком долгого соединения. Как вариант использовать второй поток, считающий время
 
 
 def get_html(url_get, useragent=None, proxy=None):
     """получение странички через прокси с маскировкой под юзер агента.
     Так же выводит статус подключения к сайту"""
-    got_html = requests.get(url_get, headers={'User-Agent': useragent}, proxies={'http': 'http://' + proxy})
+    got_html = requests.get(url_get, headers={'User-Agent': useragent}, proxies={'http': 'http://' + proxy}, timeout=10)
     print('Подключение через прокси: ', proxy)
     print('Статус запроса:', url_get, ': ', got_html.status_code)
     got_html = got_html.text

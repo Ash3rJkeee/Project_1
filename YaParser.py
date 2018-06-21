@@ -4,7 +4,7 @@ import smart_request
 
 
 def yaParser():
-    global info
+    global info, date, temps_night, temps_day
 
     # чтение страницы с инета при помощи модуля smart_request
     html = smart_request.smart_get_html('https://yandex.ru/pogoda/moscow')
@@ -58,10 +58,12 @@ def yaParser():
         date[i] = str(date[i])[2:]                   # отбросить ['
         date[i] = str(date[i])[:16]                  # отбросить ']
         date[i] = datetime.datetime.strptime(str(date[i]), "%Y-%m-%d %H:%M")   # преобразование даты в формат даты
-                                                                               # модуля datetime
+        date[i] = date[i].date()                                               # модуля datetime
         temps_day.append(temps[i*2].text)          # разбиение на списки дневных и ночных температур
         temps_night.append(temps[i*2+1].text)        #
-        info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
+
+        # формирование переменной для вывода в GUI
+        info.append('Температура ' + str(date[i]) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
 
 

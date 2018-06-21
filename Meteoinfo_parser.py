@@ -1,6 +1,6 @@
 """Модуль парсинга с "https://meteoinfo.ru/forecasts/russia/moscow-area/moscow"
- Порядок вывода температур: максимум дневной, затем максимум ночной того же числа.
- (день - ночь)"""
+ Порядок вывода температур: максимум ночной , затем максимум дневной того же числа.
+ (ночь - день)"""
 
 from bs4 import BeautifulSoup
 import datetime
@@ -37,7 +37,7 @@ def delete_name_of_day(day):
 
 
 def transform_to_date(day):
-    # функция преобразует дату из вида 20 июня  в нормальную дату
+    # функция преобразует дату из вида 20 июня  в дату формата datetime
     day = day.split(' ')[0] + " " + month_from_ru_to_eng(day.split(' ')[1])
     day = datetime.datetime.strptime(day, '%d %b')
     day = day.replace(year=datetime.datetime.today().year)     # переприсвоение года
@@ -45,7 +45,7 @@ def transform_to_date(day):
     return day
 
 def parser():
-    global info
+    global info, date, temps_night, temps_day
     # чтение страницы с инета при помощи модуля smart_request
     html = smart_request.smart_get_html('https://meteoinfo.ru/hmc-output/forecast/tab_1.php')
 
@@ -66,9 +66,10 @@ def parser():
     # отбрасываем лишние дни
     dates = dates[2:4]
 
-
+    date = [0, 0]
     for i in [0, 1]:
         dates[i] = transform_to_date(delete_name_of_day(dates[i]))
+        date[i] = dates[i].date()
 
     # нужно для обхода зарезервированного питоном слова "data-toggle"
     kwargs = {'data-toggle': 'tooltip'}
@@ -101,9 +102,10 @@ def parser():
         temps_night[i] = temps_night[i].split('°')[0]
         temps_night[i] = (int(temps_night[i].split('..')[0]) + int(temps_night[i].split('..')[1]))/2
 
+    # формирование переменной для вывода в GUI
     info = []
     for i in [0, 1]:
-        info.append('Температура ' + str(dates[i].date()) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
+        info.append('Температура ' + str(date[i]) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
 
 
