@@ -197,6 +197,7 @@ def smart_get_html(url):
 
 
 if __name__ == '__main__':
+    # сюда вбивать url для теста работы модуля изолированно от остальных
     url_outer = 'http://ya.ru'
     html_outer = smart_get_html(url_outer)
 
