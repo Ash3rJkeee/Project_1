@@ -22,12 +22,13 @@ def click_meteoinfo():
     Meteoinfo_parser.parser()
     lbl_6.configure(text=Meteoinfo_parser.info[0])
     lbl_7.configure(text=Meteoinfo_parser.info[1])
+    lbl_8.configure(text=Meteoinfo_parser.info[1])
 
 def click_weathercom():
     WeatherCom_parser.parser()
-    lbl_8.configure(text=WeatherCom_parser.info[0])
-    lbl_9.configure(text=WeatherCom_parser.info[1])
-    lbl_10.configure(text=WeatherCom_parser.info[2])
+    lbl_9.configure(text=WeatherCom_parser.info[0])
+    lbl_10.configure(text=WeatherCom_parser.info[1])
+    lbl_11.configure(text=WeatherCom_parser.info[2])
 
 root = Tk()
 root.geometry('400x600')
@@ -49,10 +50,11 @@ lbl_5 = Label(frame2, font='Ubuntu 12')
 
 lbl_6 = Label(frame3, font='Ubuntu 12')
 lbl_7 = Label(frame3, font='Ubuntu 12')
+lbl_8 = Label(frame3, font='Ubuntu 12')
 
-lbl_8 = Label(frame4, font='Ubuntu 12')
 lbl_9 = Label(frame4, font='Ubuntu 12')
 lbl_10 = Label(frame4, font='Ubuntu 12')
+lbl_11 = Label(frame4, font='Ubuntu 12')
 
 lbl_today = Label(root, font='Ubuntu 12', text="Сегодня: " + str(datetime.date.today()))
 
@@ -77,12 +79,13 @@ btn_3.pack()
 frame3.pack()
 lbl_6.pack()
 lbl_7.pack()
+lbl_8.pack()
 
 btn_4.pack()
 frame4.pack()
-lbl_8.pack()
 lbl_9.pack()
 lbl_10.pack()
+lbl_11.pack()
 
 root.mainloop()
 

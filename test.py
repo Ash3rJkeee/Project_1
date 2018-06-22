@@ -1,30 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
-import smart_request
 
-html = smart_request.smart_get_html('http://www.gismeteo.ru/weather-moscow-4368/tomorrow/')
 
-# html = requests.get('https://www.gismeteo.ru/weather-moscow-4368/tomorrow/').text
+day = 'Воскресенье24 июня'
 
-# создание объекта Soup
-soup = BeautifulSoup(html, 'html.parser')
 
-# поиск тегов 'time' и 'span' нужных классов
-days = soup.findAll('div', class_='date')
-temps = soup.findAll('div', class_='value')
+for i in range(len(day)):
+    if day[i].isdigit():
+        day = day[i:]
+        break
 
-print(days)
-print(temps)
-
-# отсеивание лишних дат
-days = days[::2]
-days = days[1:]
-
-for i in days:
-    print(i)
-
-# отвеивание лишних температур
-temps = temps[2:6]
-
-for i in temps:
-    print(i)
+print(day)

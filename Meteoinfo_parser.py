@@ -28,10 +28,11 @@ def month_from_ru_to_eng(month):
 
 def delete_name_of_day(day):
     """Удаление дня недели из даты"""
+    # print(day)
     day = str(day)
     for i in range(len(day)):
         if day[i].isdigit():
-            day = day.split(day[i - 1])[1]
+            day = day[i:]
             break
     return day
 
@@ -43,6 +44,7 @@ def transform_to_date(day):
     day = day.replace(year=datetime.datetime.today().year)     # переприсвоение года
     # print(day.date())
     return day
+
 
 def parser():
     global info, date, temps_night, temps_day
@@ -64,12 +66,14 @@ def parser():
         # print(dates[-1])
 
     # отбрасываем лишние дни
-    dates = dates[2:4]
+    dates = dates[2:5]
 
-    date = [0, 0]
-    for i in [0, 1]:
+    # print(dates)
+
+    date = []
+    for i in [0, 1, 2]:
         dates[i] = transform_to_date(delete_name_of_day(dates[i]))
-        date[i] = dates[i].date()
+        date.append(dates[i].date())
 
     # нужно для обхода зарезервированного питоном слова "data-toggle"
     kwargs = {'data-toggle': 'tooltip'}
@@ -85,7 +89,7 @@ def parser():
     temps_day = temps[:6]    # отсеил дневные
     temps_day = temps_day[1:]     # отсеил сегодняшнюю дату
     temps_night = temps[6:]         # отсеил ночные
-    # temps_night = temps_night[1:]   # отсеил сегодняшнюю дату
+    # temps_night = temps_night[1:]   # отсеил сегодняшнюю дату (не потребовалось)
 
     # print(temps_night)
     #     # print(temps_day)
@@ -104,7 +108,7 @@ def parser():
 
     # формирование переменной для вывода в GUI
     info = []
-    for i in [0, 1]:
+    for i in [0, 1, 2]:
         info.append('Температура ' + str(date[i]) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
 
