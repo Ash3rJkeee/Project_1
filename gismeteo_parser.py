@@ -22,16 +22,25 @@ def month_from_ru_to_eng(month):
     return out
 
 
-def transform_to_date(day):
-    # функция преобразует дату из GISMETEO в нормальную дату
-    day = str(day).replace('\n', '', 2)
-    day = day.strip()
-    # day = day.split(',')[1]
-    day = day[1:]
-    day = day.split(' ')[0] + " " + month_from_ru_to_eng(day.split(' ')[1])
-    day = datetime.datetime.strptime(day, '%d %b')
-    day = day.replace(year=datetime.datetime.today().year)     # переприсвоение года
-    return day
+def transform_date(days):
+    """функция преобразует даты из GISMETEO в нормальные даты"""
+    month = ''
+    for i in range(len(days)):
+        days[i] = days[i].text
+        days[i] = days[i].split('\n')[1].strip()
+        if len(days[i].split(' ')) > 1:
+            month = month_from_ru_to_eng(days[i].split(' ')[1])
+            # print(month)
+            days[i] = days[i].split(' ')[0]
+        days[i] = days[i] + ' ' + month
+        # print(days[i])
+        days[i] = datetime.datetime.strptime(days[i], '%d %b')
+        days[i] = days[i].replace(year=datetime.datetime.today().year)     # переприсвоение года
+        days[i] = str(days[i].date())
+
+    days = days[1:]
+    # print(days)
+    return days
 
 
 def gismeteo_parser():
@@ -61,30 +70,30 @@ def gismeteo_parser():
 
     # отсеивание лишних дат
     # days = days[::2]
-    days = days[1:10]
+    days = days[:10]
 
-    for i in days:
-        print(i.text.rstrip())
+    # for i in days:
+    #     print(i.text.strip())
 
     # отвеивание лишних температур
     temps = temps[1:10]
 
-    for i in temps:
-        print(i.text)
+    # for i in temps:
+    #     print(i.text)
 
     # заготовка списков
-    date = []
+    date = transform_date(days)
+
     temps_day = []
     temps_night = []
     info = []
 
-    for i in [0, 1]:
-        date.append(transform_to_date(days[i].text))
-        # print(date[i])
-        temps_night.append(temps[i*2].text)
-        temps_day.append(temps[i*2+1].text)
-        date[i] = date[i].date()
+    for i in range(len(temps)):
+        # print(temps[i].text.split('+'))
+        temps_day.append(temps[i].text.split('+')[1])
+        temps_night.append(temps[i].text.split('+')[2])
 
+    for i in [0, 1, 2]:
         # формирование переменной для вывода в GUI
         info.append('Температура ' + str(date[i]) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
