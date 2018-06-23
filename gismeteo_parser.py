@@ -26,7 +26,7 @@ def transform_to_date(day):
     # функция преобразует дату из GISMETEO в нормальную дату
     day = str(day).replace('\n', '', 2)
     day = day.strip()
-    day = day.split(',')[1]
+    # day = day.split(',')[1]
     day = day[1:]
     day = day.split(' ')[0] + " " + month_from_ru_to_eng(day.split(' ')[1])
     day = datetime.datetime.strptime(day, '%d %b')
@@ -38,7 +38,9 @@ def gismeteo_parser():
     global info, date, temps_night, temps_day
 
     # чтение страницы с инета при помощи модуля smart_request
-    html = smart_request.smart_get_html('https://www.gismeteo.ru/weather-moscow-4368/tomorrow/')
+    # html = smart_request.smart_get_html('https://www.gismeteo.ru/weather-moscow-4368/tomorrow/')
+    html = smart_request.smart_get_html('https://www.gismeteo.ru/weather-moscow-4368/10-days/')
+
 
     # # чтение файла с указанием его кодировки. Обработка исключения,
     # #  если запускается на домашнем компе (другой путь файла)
@@ -50,23 +52,25 @@ def gismeteo_parser():
 
     # создание объекта Soup
     soup = BeautifulSoup(html, 'html.parser')
+    # print(soup)
+
 
     # поиск тегов 'time' и 'span' нужных классов
-    days = soup.findAll('div', class_='date')
+    days = soup.findAll('div', class_='w_date')
     temps = soup.findAll('div', class_='value')
 
     # отсеивание лишних дат
-    days = days[::2]
-    days = days[1:]
+    # days = days[::2]
+    days = days[1:10]
 
-    # for i in days:
-    #     print(i)
+    for i in days:
+        print(i.text.rstrip())
 
     # отвеивание лишних температур
-    temps = temps[2:6]
+    temps = temps[1:10]
 
-    # for i in temps:
-    #     print(i)
+    for i in temps:
+        print(i.text)
 
     # заготовка списков
     date = []

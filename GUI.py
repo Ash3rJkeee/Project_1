@@ -4,6 +4,7 @@ import datetime
 import gismeteo_parser
 import Meteoinfo_parser
 import WeatherCom_parser
+import smart_request
 
 """Модуль с основным интерфейсом. Он же основной управляющий модуль"""
 
@@ -29,6 +30,11 @@ def click_weathercom():
     lbl_9.configure(text=WeatherCom_parser.info[0])
     lbl_10.configure(text=WeatherCom_parser.info[1])
     lbl_11.configure(text=WeatherCom_parser.info[2])
+
+
+def click_connection_check():
+    smart_request.smart_get_html('http://ya.ru')
+    lbl_proxy.configure(text='Proxy: ' + smart_request.picked_proxy)
 
 root = Tk()
 root.geometry('400x600')
@@ -57,11 +63,15 @@ lbl_10 = Label(frame4, font='Ubuntu 12')
 lbl_11 = Label(frame4, font='Ubuntu 12')
 
 lbl_today = Label(root, font='Ubuntu 12', text="Сегодня: " + str(datetime.date.today()))
+lbl_proxy = Label(root, font='Ubuntu 12', text="Proxy: ")
+
 
 btn_1 = Button(frame1, text='Спарсить Яндекс.Погода', font='Ubuntu 12', command=click_ya)
 btn_2 = Button(frame2, text='Спарсить GISMETEO', font='Ubuntu 12', command=click_gismeteo)
 btn_3 = Button(frame3, text='Спарсить meteoifo.ru', font='Ubuntu 12', command=click_meteoinfo)
 btn_4 = Button(frame4, text='Спарсить weather.com', font='Ubuntu 12', command=click_weathercom)
+btn_check = Button(root, text='Проверить соединение', font='Ubuntu 12', command=click_connection_check)
+
 
 lbl_today.pack()
 
@@ -86,6 +96,9 @@ frame4.pack()
 lbl_9.pack()
 lbl_10.pack()
 lbl_11.pack()
+
+btn_check.pack()
+lbl_proxy.pack()
 
 root.mainloop()
 
