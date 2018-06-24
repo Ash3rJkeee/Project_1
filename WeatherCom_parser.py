@@ -61,8 +61,8 @@ def parser():
     tds = tds[1:]
 
     temps = []
-    temps_day = []
-    temps_night = []
+    # temps_day = []
+    # temps_night = []
 
     for i in range(len(tds)):
         temps.append(tds[i].text)
@@ -79,6 +79,12 @@ def parser():
         print(info[i])
 
 
+date = []
+temps_day = []
+temps_night = []
+info = []
+
 if __name__ == '__main__':
     parser()
+
 

@@ -84,9 +84,9 @@ def gismeteo_parser():
     # заготовка списков
     date = transform_date(days)
 
-    temps_day = []
-    temps_night = []
-    info = []
+    # temps_day = []
+    # temps_night = []
+    # info = []
 
     for i in range(len(temps)):
         # print(temps[i].text.split('+'))
@@ -99,20 +99,12 @@ def gismeteo_parser():
         print(info[i])
 
 
+date = []
+temps_day = []
+temps_night = []
+info = []
+
+
 if __name__ == '__main__':
     gismeteo_parser()
 
-
-# что парсим:    'https://www.gismeteo.ru/weather-moscow-4368/tomorrow/'
-# дата
-
-# <div class="eeac4214ba5">Пн, 11 июня </div>
-# Дата 2
-# <div class="date">Пн, 18 июня </div>
-
-# макс температура
-# < div class ="c2c0b7a7a57" style="top: 0px; width: 50%;" > +19 < / div >
-# мин температура
-# < div class ="c2c0b7a7a57" style="top: 16px; width: 50%;" > +7 < / div >
-# температура 2
-# <div class="value" style="top: 16px; width: 50%;">+14</div>

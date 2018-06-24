@@ -48,6 +48,7 @@ def yaParser():
     temps_night = []
     info = []
 
+
     # вывод на печать сегодняшней даты
     # today = datetime.date.today()
     # print('Сегодня: ', today)
@@ -58,7 +59,7 @@ def yaParser():
         date[i] = str(date[i])[2:]                   # отбросить ['
         date[i] = str(date[i])[:16]                  # отбросить ']
         date[i] = datetime.datetime.strptime(str(date[i]), "%Y-%m-%d %H:%M")   # преобразование даты в формат даты
-        date[i] = date[i].date()                                               # модуля datetime
+        # date[i] = date[i].date()                                              # модуля datetime
         temps_day.append(temps[i*2].text)          # разбиение на списки дневных и ночных температур
         temps_night.append(temps[i*2+1].text)        #
 
@@ -66,9 +67,14 @@ def yaParser():
         temps_day[i] = temps_day[i].split('+')[1]
         temps_night[i] = temps_night[i].split('+')[1]
         # формирование переменной для вывода в GUI
-        info.append('Температура ' + str(date[i]) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
+        info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
 
+
+date = []
+temps_day = []
+temps_night = []
+info = []
 
 if __name__ == '__main__':
     yaParser()

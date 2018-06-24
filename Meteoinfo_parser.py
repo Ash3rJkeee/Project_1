@@ -70,7 +70,7 @@ def parser():
 
     # print(dates)
 
-    date = []
+    # date = []
     for i in [0, 1, 2]:
         dates[i] = transform_to_date(delete_name_of_day(dates[i]))
         date.append(dates[i].date())
@@ -79,7 +79,6 @@ def parser():
     kwargs = {'data-toggle': 'tooltip'}
 
     trs = div.findAll('span', kwargs)
-
 
     temps = []
     for tr in trs:
@@ -107,11 +106,16 @@ def parser():
         temps_night[i] = (int(temps_night[i].split('..')[0]) + int(temps_night[i].split('..')[1]))/2
 
     # формирование переменной для вывода в GUI
-    info = []
+    # info = []
     for i in [0, 1, 2]:
         info.append('Температура ' + str(date[i]) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
         print(info[i])
 
+
+date = []
+temps_day = []
+temps_night = []
+info = []
 
 if __name__ == '__main__':
     parser()

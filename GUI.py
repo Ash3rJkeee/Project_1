@@ -5,6 +5,7 @@ import gismeteo_parser
 import Meteoinfo_parser
 import WeatherCom_parser
 import smart_request
+import exel_export
 
 """Модуль с основным интерфейсом. Он же основной управляющий модуль"""
 
@@ -35,6 +36,11 @@ def click_weathercom():
 def click_connection_check():
     smart_request.smart_get_html('http://ya.ru')
     lbl_proxy.configure(text='Proxy: ' + smart_request.picked_proxy)
+
+
+def click_exel_export():
+    exel_export.export()
+
 
 root = Tk()
 root.geometry('400x600')
@@ -71,6 +77,7 @@ btn_2 = Button(frame2, text='Спарсить GISMETEO', font='Ubuntu 12', comma
 btn_3 = Button(frame3, text='Спарсить meteoifo.ru', font='Ubuntu 12', command=click_meteoinfo)
 btn_4 = Button(frame4, text='Спарсить weather.com', font='Ubuntu 12', command=click_weathercom)
 btn_check = Button(root, text='Проверить соединение', font='Ubuntu 12', command=click_connection_check)
+btn_export = Button(root, text='Записать в файл', font='Ubuntu 12', command=click_exel_export)
 
 
 lbl_today.pack()
@@ -99,6 +106,8 @@ lbl_11.pack()
 
 btn_check.pack()
 lbl_proxy.pack()
+
+btn_export.pack()
 
 root.mainloop()
 

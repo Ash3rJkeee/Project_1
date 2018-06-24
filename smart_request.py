@@ -217,7 +217,7 @@ def smart_get_html(url):
     """Основаная функция подключения"""
     global picked_agent, picked_proxy, user_agents, checked
 
-    if 'checked' not in globals():
+    if checked == False:
         read_file_agents()
         read_proxies()
         if user_agents != []:
@@ -230,6 +230,9 @@ def smart_get_html(url):
     html = get_html(url)
     return html
 
+
+checked = False
+picked_proxy = ''
 
 if __name__ == '__main__':
     # сюда вбивать url для теста работы модуля изолированно от остальных
