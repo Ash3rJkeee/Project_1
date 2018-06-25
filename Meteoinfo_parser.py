@@ -108,7 +108,7 @@ def parser():
     # формирование переменной для вывода в GUI
     # info = []
     for i in [0, 1, 2]:
-        info.append('Температура ' + str(date[i]) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
+        info.append(str(date[i]) + '  Тн =' + str(temps_night[i]) + '  Тд =' + str(temps_day[i]))
         print(info[i])
 
 

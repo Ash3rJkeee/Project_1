@@ -67,7 +67,7 @@ def yaParser():
         temps_day[i] = temps_day[i].split('+')[1]
         temps_night[i] = temps_night[i].split('+')[1]
         # формирование переменной для вывода в GUI
-        info.append('Температура ' + str(date[i].date()) + ' составит ' + str(temps_night[i]) + ' ' + str(temps_day[i]))
+        info.append(str(date[i].date()) + '  Тн ' + str(temps_night[i]) + '  Тд ' + str(temps_day[i]))
         print(info[i])
 
 
