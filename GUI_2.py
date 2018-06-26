@@ -84,16 +84,16 @@ btn_do_all.pack(pady=20)
 main_frame = Frame(root, relief=RIDGE)
 main_frame.pack()
 
-frame1 = FrameParser(main_frame, 'Спарсить Яндекс', row=0, column=0)
+frame1 = FrameParser(main_frame, 'Опросить Яндекс', row=0, column=0)
 frame1.btn.configure(command=frame1.click_ya)
 
-frame2 = FrameParser(main_frame, 'Спарсить Гисметео', row=1, column=0)
+frame2 = FrameParser(main_frame, 'Опросить Гисметео', row=1, column=0)
 frame2.btn.configure(command=frame2.click_gismeteo)
 
-frame3 = FrameParser(main_frame, 'Спарсить Метеоинфо', row=0, column=1)
+frame3 = FrameParser(main_frame, 'Опросить Метеоинфо', row=0, column=1)
 frame3.btn.configure(command=frame3.click_meteoinfo)
 
-frame4 = FrameParser(main_frame, 'Спарсить Weather.com', row=1, column=1)
+frame4 = FrameParser(main_frame, 'Опросить Weather.com', row=1, column=1)
 frame4.btn.configure(command=frame4.click_weathercom)
 
 btn_check = Button(main_frame, text='Проверить соединение', font='Ubuntu 12', command=click_connection_check, bd=3,
