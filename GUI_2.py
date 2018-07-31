@@ -12,7 +12,7 @@ import exel_export
 # todo Добавить графическое подтверждение, что все прошло успешно
 
 def click_connection_check():
-    smart_request.smart_get_html('http://ya.ru')
+    smart_request.smart_get_html('http://rambler.ru')
     lbl_check.configure(text='Используется рабочий Proxy:        ' + smart_request.picked_proxy)
 
 

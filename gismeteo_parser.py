@@ -39,7 +39,7 @@ def transform_date(days):
         days[i] = str(days[i].date())
 
     days = days[1:]
-    # print(days)
+    print(days)
     return days
 
 
@@ -78,8 +78,8 @@ def gismeteo_parser():
     # отвеивание лишних температур
     temps = temps[1:10]
 
-    # for i in temps:
-    #     print(i.text)
+    for i in temps:
+        print(i.text)
 
     # заготовка списков
     date = transform_date(days)
