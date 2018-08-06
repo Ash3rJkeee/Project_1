@@ -6,19 +6,18 @@ import smart_request
 def month_from_ru_to_eng(month):
     # преобразует месяцы из ru в eng #
     out = ''
-    if month == 'января': out = 'jan'
-    if month == 'декабря': out = 'dec'
-    if month == 'февраля': out = 'feb'
-    if month == 'марта': out = 'mar'
-    if month == 'апреля': out = 'apr'
-    if month == 'мая': out = 'may'
-    if month == 'июня': out = 'jun'
-    if month == 'июля': out = 'jul'
-    if month == 'августа': out = 'aug'
-    if month == 'сентябся': out = 'sep'
-    if month == 'октября': out = 'oct'
-    if month == 'ноября': out = 'nov'
-    if month == 'декабря': out = 'dec'
+    if month == 'янв': out = 'jan'
+    if month == 'фев': out = 'feb'
+    if month == 'мар': out = 'mar'
+    if month == 'апр': out = 'apr'
+    if month == 'май': out = 'may'
+    if month == 'июн': out = 'jun'
+    if month == 'июл': out = 'jul'
+    if month == 'авг': out = 'aug'
+    if month == 'сен': out = 'sep'
+    if month == 'окт': out = 'oct'
+    if month == 'ноя': out = 'nov'
+    if month == 'дек': out = 'dec'
     return out
 
 
@@ -39,7 +38,7 @@ def transform_date(days):
         days[i] = str(days[i].date())
 
     days = days[1:]
-    print(days)
+    # print(days)
     return days
 
 
@@ -78,8 +77,9 @@ def gismeteo_parser():
     # отвеивание лишних температур
     temps = temps[1:10]
 
-    for i in temps:
-        print(i.text)
+    # for i in temps:
+    #     print(i.text)
+
 
     # заготовка списков
     date = transform_date(days)

@@ -20,7 +20,7 @@ def yaParser():
     soup = BeautifulSoup(html, 'html.parser')
 
     # поиск тегов 'time' и 'span' нужных классов
-    days = soup.findAll('time', class_='time forecast-briefly__date')
+    days = soup.findAll('time', class_='time forecast-briefly-old__date')
     temps = soup.findAll('span', class_='temp__value')
 
     # отбрасывание лишних данных от результата парсинга

@@ -27,7 +27,7 @@ def rewrite_file_agents():
     file.close()
 
 
-def read_proxies():
+def read_file_proxies():
     """Считать список прокси из сохраненного файла"""
     global proxies
     file = open('proxies.txt', 'r')
@@ -39,7 +39,7 @@ def read_proxies():
     file.close()
 
 
-def rewrite_proxies():
+def rewrite_file_proxies():
     """Перезаписывает список прокси для следующего запуска программы"""
     global proxies
     file = open('proxies.txt', 'w')
@@ -60,18 +60,18 @@ def get_html(url_get):
                 got_html = requests.get(url_get, timeout=10)
             else:
                 print('\nПодключение через прокси: ', picked_proxy)
-                got_html = requests.get(url_get, proxies={'http': 'http://' + picked_proxy}, timeout=10)
+                got_html = requests.get(url_get, proxies={'https': picked_proxy}, timeout=10)
             # got_html = requests.get(url_get, proxies={'http': 'http://' + picked_proxy}, timeout=10)
         else:
             if 'picked_proxy' not in globals():
                 got_html = requests.get(url_get, headers={'User-Agent': picked_agent}, timeout=10)
             else:
                 print('\nПодключение через прокси: ', picked_proxy)
-                got_html = requests.get(url_get, headers={'User-Agent': picked_agent}, proxies={'http': 'http://' + picked_proxy}, timeout=10)
+                got_html = requests.get(url_get, headers={'User-Agent': picked_agent}, proxies={'https': picked_proxy}, timeout=10)
     except requests.exceptions.ReadTimeout:
         """На случай, если конкретный прокси забанен на конкретном сайте"""
-        print('На этом сайте прокси в бане')
-        delete_proxie(picked_proxy)
+        print('Превышено время ожидания ответа')
+        # delete_proxie(picked_proxy)
         pick_proxy()
         got_html = get_html(url_get)
     print('Статус запроса:', url_get, ': ', got_html.status_code)
@@ -85,43 +85,43 @@ def delete_proxie(proxy):
     не учавтсвовал в выборе"""
     global proxies
     proxies.remove(proxy)
-    rewrite_proxies()
+    rewrite_file_proxies()
 
 
 def pick_proxy():
-    """Получает обновленный список прокси и передает в picked_proxy один любой из них"""
+    """Получает обновленный список прокси и передает в picked_proxy первый элемент из него"""
     global picked_proxy, proxies, picked_agent
 
     print('--------------------------------------------------------------------------------------')
     print('Выбор прокси для подключения....')
 
-    if ('proxies' not in globals()) or (proxies == []):
-        print("Получение списка прокси.....")
-        url_proxy_site = 'https://proxylist.me/?avalibity=90&protocol=&sort=-updated&filtrar=Filtrar&type=&city' \
-                         '__state__country__name='
-
-        html = get_html(url_proxy_site)
-        soup = BeautifulSoup(html, 'html.parser')
-
-        table = soup.find('table')
-        td = table.findAll('td', class_='ip')
-
-        # поиск значений прокси
-        proxies = []
-        for i in td:
-            proxies.append(i.text.strip())
-
-        # поиск значений портов
-        ports = []
-        for i in soup.findAll('td', class_='port'):
-            ports.append(i.text.strip())
-
-        # слияние ip и портов
-        for i in range(len(proxies)):
-            proxies[i] = proxies[i] + ":" + str(ports[i])
-            # print(proxies[i])
-        print('получено и записано ', len(proxies), 'адресов прокси')
-        rewrite_proxies()
+    # if ('proxies' not in globals()) or (proxies == []):
+    #     print("Получение списка прокси.....")
+    #     url_proxy_site = 'https://proxylist.me/?avalibity=90&protocol=&sort=-updated&filtrar=Filtrar&type=&city' \
+    #                      '__state__country__name='
+    #
+    #     html = get_html(url_proxy_site)
+    #     soup = BeautifulSoup(html, 'html.parser')
+    #
+    #     table = soup.find('table')
+    #     td = table.findAll('td', class_='ip')
+    #
+    #     # поиск значений прокси
+    #     proxies = []
+    #     for i in td:
+    #         proxies.append(i.text.strip())
+    #
+    #     # поиск значений портов
+    #     ports = []
+    #     for i in soup.findAll('td', class_='port'):
+    #         ports.append(i.text.strip())
+    #
+    #     # слияние ip и портов
+    #     for i in range(len(proxies)):
+    #         proxies[i] = proxies[i] + ":" + str(ports[i])
+    #         # print(proxies[i])
+    #     print('получено и записано ', len(proxies), 'адресов прокси')
+    #     rewrite_file_proxies()
     picked_proxy = proxies[0]
     print("Использованный новый прокси : ", picked_proxy)
     print()
@@ -168,17 +168,15 @@ def pick_user_agent():
     print('Использованный User Agent: ', picked_agent)
 
 
-
 def get_my_ip_and_user_agent():
     """для проверки своего агента и ip"""
     global picked_agent, picked_proxy, user_agents
-    html = get_html('http://sitespy.ru/my-ip')
+    html = get_html('https://yandex.ru/internet/')
     soup = BeautifulSoup(html, 'html.parser')
-    my_ip = soup.find('span', class_='ip').text.strip()
-    user_agent = soup.find('span', class_='ip').find_next_sibling('span').text.strip()
-
+    my_ip = soup.find('span', class_='info__value info__value_type_ipv4').text
     print('my ip: ', my_ip)
-    print(user_agent)
+    div_browser = soup.find('div', class_='info__group info__group_type_browser')
+    print(div_browser.text)
     return my_ip
 
 
@@ -187,25 +185,26 @@ def connection_check():
     global picked_agent, picked_proxy, user_agents, checked
     print('Проверка свойств соединения....')
     my_ip = ''
-    try:
-        my_ip = get_my_ip_and_user_agent()
-        print('Соединение успешно.')
-        checked = True
-    except:
-        print('Соединение не удалось. Reconnect.....')
-        sleep(uniform(2, 4))
-        print('Смена прокси....')
-        delete_proxie(picked_proxy)
-        pick_proxy()
-        print('Смена агента....')
-        pick_user_agent()
-        connection_check()
-        print()
-    if my_ip == '193.104.149.162':
+    # try:
+    my_ip = get_my_ip_and_user_agent()
+    print('Соединение успешно.')
+    checked = True
+    # except:
+    #     print('Соединение не удалось. Reconnect.....')
+    #     sleep(uniform(2, 4))
+    #     # print('Смена прокси....')
+    #     # delete_proxie(picked_proxy)
+    #     pick_proxy()
+    #     print('Смена агента....')
+    #     pick_user_agent()
+    #     connection_check()
+    #     print()
+    if my_ip == '193.104.149.167':
+        # Todo прописать проверку всей доменной зоны МОЭК 193.104.149.0-255
         print('Некачественный пррокси. Reconnect.....')
         sleep(uniform(2, 4))
-        print('Смена прокси....')
-        delete_proxie(picked_proxy)
+        # print('Смена прокси....')
+        # delete_proxie(picked_proxy)
         pick_proxy()
         print('Смена агента....')
         pick_user_agent()
@@ -219,7 +218,7 @@ def smart_get_html(url):
 
     if checked == False:
         read_file_agents()
-        read_proxies()
+        read_file_proxies()
         if user_agents != []:
             picked_agent = choice(user_agents)
             print('Используемый агент: ', picked_agent)
