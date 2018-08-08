@@ -182,7 +182,7 @@ def get_my_ip_and_user_agent():
 
 def connection_check():
     """Функция проверки статуса соединения. Если нет соединения, меняет прокси и агент"""
-    global picked_agent, picked_proxy, user_agents, checked
+    global picked_agent, picked_proxy, user_agents, checked, my_ip
     print('Проверка свойств соединения....')
     my_ip = ''
     # try:
@@ -232,10 +232,11 @@ def smart_get_html(url):
 
 checked = False
 picked_proxy = ''
+my_ip = ''
 
 if __name__ == '__main__':
     # сюда вбивать url для теста работы модуля изолированно от остальных
     url_outer = 'http://ya.ru'
     html_outer = smart_get_html(url_outer)
 
-# 'http://sitespy.ru/my-ip'
+

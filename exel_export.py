@@ -5,6 +5,7 @@ import Meteoinfo_parser
 import WeatherCom_parser
 import datetime
 import smart_request
+from openpyxl.styles import Alignment
 
 """Модуль изымает данные из модулей парсеров и сводит их в общую exel таблицу"""
 
@@ -13,6 +14,10 @@ import smart_request
 def date_to_exel_format(day):
     return day.strftime('%d.%m.%Y')
 
+def raise_exel_date(string):
+    """Увеличивает дату в формате Exel на 1 день"""
+    a = datetime.datetime.strptime(string, "%d.%m.%Y") + datetime.timedelta(days=1)
+    return a.strftime("%d.%m.%Y")
 
 def export():
     # YaParser.yaParser()
@@ -54,63 +59,69 @@ def export():
 
     file = 'Forecasts.xlsx'
     wb = openpyxl.load_workbook(file)
-    wb_lists = wb.sheetnames
+    # wb_lists = wb.sheetnames
     # print(wb_lists)
     ws = wb[wb.sheetnames[0]]
     # print(type(ws.max_row))
 
-    # сегодняшняя дата (пробую имитировать завтрашнюю дату, путем смещения текущей)
+    # сегодняшняя дата (для отладки пробую имитировать завтрашнюю дату, путем смещения текущей)
     today = datetime.date.today() + datetime.timedelta(days=0)
-    print(today)
+    # print(today)
 
     # делаем отметку с новой датой записи прогноза
     # получаем список всех дат
-    date_list = list(ws['A'])
-    date_list = date_list[3:]
+    # date_list_2 = list(ws['B'])
+    # date_list_2 = date_list_2[3:]
 
-    empty_A_row = 0
-    for i in range(len(date_list)):
-        if date_list[i].value is not None:
-            # если в таблицу потом будет писаться время, то тут будет date_list[i] = date_list[i].value.date()
-            # для комфортного преобразования из типа datetime.datetime
-            date_list[i] = date_list[i].value
-        else:
-            date_list[i] = date_list[i].value
-            empty_A_row = i + 4                      # сразу найдем, номер следующей пустой строки для даты записи
-            # print('empty_A_row', empty_A_row)
-            break
-        # print(date_list[i])
+    date_list_1 = list(ws['A'])
+    date_list_1 = date_list_1[3:]
+
+    for i in range(len(date_list_1)):
+        date_list_1[i] = date_list_1[i].value
+        # print(date_list_1[i])
+
+    # готовим записи для дат прогнозов
+    mark_row = 3
+    while ws.cell(row=mark_row, column=2).value != date_to_exel_format(today + datetime.timedelta(days=3)):
+        mark_row += 1
+        if ws.cell(row=mark_row, column=2).value is None:
+            ws.cell(row=mark_row, column=2).value = raise_exel_date(ws.cell(row=mark_row-1, column=2).value)
+            ws.cell(row=mark_row, column=2).alignment = Alignment(horizontal="center", vertical="center")     # выравнивание
+
+    mark_row = mark_row - 2
+
+
 
     # задаем номера строчек для последующей записи
-    if date_to_exel_format(today) not in date_list:
+    if date_to_exel_format(today) not in date_list_1:
         print('Сделана новая запись на', today)
-        today_row = empty_A_row
-        ws.cell(row=today_row, column=1).value = date_to_exel_format(today)              # если запись не делалась, сделать заготовку
+        ws.cell(row=mark_row, column=1).value = date_to_exel_format(today)              # если запись от текущей даты не делалась
+        ws.cell(row=mark_row, column=1).alignment = Alignment(horizontal="center", vertical="center")    # выравнивание
     else:
         print('Данные на текущую дату перезаписаны')
-        today_row = date_list.index(date_to_exel_format(today)) + 4
+        mark_row = date_list_1.index(date_to_exel_format(today)) + 4
 
-    forecast_1_day_row = today_row
-    forecast_2_days_row = today_row + 1
-    forecast_3_days_row = today_row + 2
+    forecast_1_day_row = mark_row
+    forecast_2_days_row = mark_row + 1
+    forecast_3_days_row = mark_row + 2
 
-    # готовим запись для дат прогнозов
-    for i in [0, 1, 2]:
-        ws.cell(row=today_row + i, column=2).value = date_to_exel_format(today + datetime.timedelta(days=i + 1))
 
     i = 0
     for col in range(3, 11):
         ws.cell(row=forecast_1_day_row, column=col).value = float(data1[i])
+        ws.cell(row=forecast_1_day_row, column=col).alignment = Alignment(horizontal="center", vertical="center") # выравнивание
         i = i + 1
 
     i = 0
     for col in range(11, 19):
         ws.cell(row=forecast_2_days_row, column=col).value = float(data2[i])
+        ws.cell(row=forecast_2_days_row, column=col).alignment = Alignment(horizontal="center", vertical="center") # выравнивание
         i = i + 1
 
     i = 0
     for col in range(19, 27):
         ws.cell(row=forecast_3_days_row, column=col).value = float(data3[i])
+        ws.cell(row=forecast_3_days_row, column=col).alignment = Alignment(horizontal="center", vertical="center") # выравнивание
         i = i + 1
 
     wb.save(file)
