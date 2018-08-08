@@ -23,32 +23,32 @@ def export():
     # gismeteo_parser.gismeteo_parser()
     # Meteoinfo_parser.parser()
     # WeatherCom_parser.parser()
-    # try:
-    #     if smart_request.checked == True:
-    #         data1 = [YaParser.temps_night[0], YaParser.temps_day[0],
-    #                 gismeteo_parser.temps_night[0], gismeteo_parser.temps_day[0],
-    #                 Meteoinfo_parser.temps_night[0], Meteoinfo_parser.temps_day[0],
-    #                 WeatherCom_parser.temps_night[0], WeatherCom_parser.temps_day[0]]
-    #
-    #         data2 = [YaParser.temps_night[1], YaParser.temps_day[1],
-    #                 gismeteo_parser.temps_night[1], gismeteo_parser.temps_day[1],
-    #                 Meteoinfo_parser.temps_night[1], Meteoinfo_parser.temps_day[1],
-    #                 WeatherCom_parser.temps_night[1], WeatherCom_parser.temps_day[1]]
-    #
-    #         data3 = [YaParser.temps_night[2], YaParser.temps_day[2],
-    #                 gismeteo_parser.temps_night[2], gismeteo_parser.temps_day[2],
-    #                 Meteoinfo_parser.temps_night[2], Meteoinfo_parser.temps_day[2],
-    #                 WeatherCom_parser.temps_night[2], WeatherCom_parser.temps_day[2]]
-    #     else:
-    #         print('Соединение не установлено. Экспорт невозможен.')
-    #         raise Exception("Соединение не установлено. Экспорт невозможен.")
-    # except IndexError:
-    #     print('Не сформирован массив загрузки. Запустите все парсеры.')
-    #     raise FileExistsError('Не сформирован массив загрузки. Запустите все парсеры.')
+    try:
+        if smart_request.checked == True:
+            data1 = [YaParser.temps_night[0], YaParser.temps_day[0],
+                    gismeteo_parser.temps_night[0], gismeteo_parser.temps_day[0],
+                    Meteoinfo_parser.temps_night[0], Meteoinfo_parser.temps_day[0],
+                    WeatherCom_parser.temps_night[0], WeatherCom_parser.temps_day[0]]
 
-    data1 = ['15', '24', '16', '22', '14.7', '25.0', '15', '25']
-    data2 = ['16', '22', '13', '28', '12.7', '26.0', '14', '26']
-    data3 = ['11', '23', '13', '26', '15.7', '27.0', '14', '30']
+            data2 = [YaParser.temps_night[1], YaParser.temps_day[1],
+                    gismeteo_parser.temps_night[1], gismeteo_parser.temps_day[1],
+                    Meteoinfo_parser.temps_night[1], Meteoinfo_parser.temps_day[1],
+                    WeatherCom_parser.temps_night[1], WeatherCom_parser.temps_day[1]]
+
+            data3 = [YaParser.temps_night[2], YaParser.temps_day[2],
+                    gismeteo_parser.temps_night[2], gismeteo_parser.temps_day[2],
+                    Meteoinfo_parser.temps_night[2], Meteoinfo_parser.temps_day[2],
+                    WeatherCom_parser.temps_night[2], WeatherCom_parser.temps_day[2]]
+        else:
+            print('Соединение не установлено. Экспорт невозможен.')
+            raise Exception("Соединение не установлено. Экспорт невозможен.")
+    except IndexError:
+        print('Не сформирован массив загрузки. Запустите все парсеры.')
+        raise FileExistsError('Не сформирован массив загрузки. Запустите все парсеры.')
+
+    # data1 = ['15', '24', '16', '22', '14.7', '25.0', '15', '25']
+    # data2 = ['16', '22', '13', '28', '12.7', '26.0', '14', '26']
+    # data3 = ['11', '23', '13', '26', '15.7', '27.0', '14', '30']
 
     print('*******************************************************')
     print('Идет экспорт в файл')
