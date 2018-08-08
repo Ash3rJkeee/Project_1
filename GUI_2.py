@@ -9,7 +9,6 @@ import exel_export
 
 """Модуль с основным интерфейсом. Он же основной управляющий модуль"""
 
-# todo Добавить защиту от неоднократного нажатия на кнопки
 
 def click_connection_check():
     smart_request.smart_get_html('http://rambler.ru')

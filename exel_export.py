@@ -9,7 +9,6 @@ from openpyxl.styles import Alignment
 
 """Модуль изымает данные из модулей парсеров и сводит их в общую exel таблицу"""
 
-# todo Добавить обработку проверки пропуска записи дат. Чтобы не получалось мешанины в exel файле.
 
 def date_to_exel_format(day):
     return day.strftime('%d.%m.%Y')
