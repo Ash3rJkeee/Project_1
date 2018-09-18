@@ -19,10 +19,6 @@ def raise_exel_date(string):
     return a.strftime("%d.%m.%Y")
 
 def export():
-    # YaParser.yaParser()
-    # gismeteo_parser.gismeteo_parser()
-    # Meteoinfo_parser.parser()
-    # WeatherCom_parser.parser()
     try:
         if smart_request.checked == True:
             data1 = [YaParser.temps_night[0], YaParser.temps_day[0],
@@ -53,12 +49,14 @@ def export():
     print('*******************************************************')
     print('Идет экспорт в файл')
     print(data1)
-    print(data2)
     print(data3)
 
+    # file = r'Прогнозы.xlsx'
     file = r'\\tsk-fileserv-01.tsk-mosenergo.ru\ОИО\ТСК-Мосэнерго (АУ)\Центральная диспетчерская служба\Область обмена\ЦДС\Аналитика\Прогнозы.xlsx'
+
     wb = openpyxl.load_workbook(file)
     # wb_lists = wb.sheetnames
+    print(data2)
     # print(wb_lists)
     ws = wb[wb.sheetnames[0]]
     # print(type(ws.max_row))
@@ -127,4 +125,9 @@ def export():
 
 
 if __name__ == '__main__':
+    YaParser.yaParser()
+    gismeteo_parser.gismeteo_parser()
+    Meteoinfo_parser.parser()
+    WeatherCom_parser.parser()
     export()
+    # input('Нажмите Enter для выхода')

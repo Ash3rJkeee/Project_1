@@ -19,7 +19,7 @@ def month_from_ru_to_eng(month):
     if month == 'июня': out = 'jun'
     if month == 'июля': out = 'jul'
     if month == 'августа': out = 'aug'
-    if month == 'сентябся': out = 'sep'
+    if month == 'сентября': out = 'sep'
     if month == 'октября': out = 'oct'
     if month == 'ноября': out = 'nov'
     if month == 'декабря': out = 'dec'
@@ -28,7 +28,6 @@ def month_from_ru_to_eng(month):
 
 def delete_name_of_day(day):
     """Удаление дня недели из даты"""
-    # print(day)
     day = str(day)
     for i in range(len(day)):
         if day[i].isdigit():
@@ -72,6 +71,7 @@ def parser():
 
     # date = []
     for i in [0, 1, 2]:
+        # print(dates[i])
         dates[i] = transform_to_date(delete_name_of_day(dates[i]))
         date.append(dates[i].date())
 
