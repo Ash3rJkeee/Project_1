@@ -9,6 +9,7 @@ from openpyxl.styles import Alignment
 
 """Модуль изымает данные из модулей парсеров и сводит их в общую exel таблицу"""
 
+# todo Включить обработку
 
 def date_to_exel_format(day):
     return day.strftime('%d.%m.%Y')
@@ -102,7 +103,6 @@ def export():
     forecast_2_days_row = mark_row + 1
     forecast_3_days_row = mark_row + 2
 
-
     i = 0
     for col in range(3, 11):
         ws.cell(row=forecast_1_day_row, column=col).value = float(data1[i])
@@ -130,4 +130,6 @@ if __name__ == '__main__':
     Meteoinfo_parser.parser()
     WeatherCom_parser.parser()
     export()
+
+    # todo сделать задержку закрытия консоли в течение 5 сек если не будет нажатия клавиатуры
     # input('Нажмите Enter для выхода')

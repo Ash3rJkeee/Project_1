@@ -88,10 +88,25 @@ def gismeteo_parser():
     # temps_night = []
     # info = []
 
+    # отсечение знаков "+" и "-" и распределение на ночные и дневные:
     for i in range(len(temps)):
+        # print(temps[i].text)
+        temporary_1 = temps[i].find('div', class_='maxt').text
+        # print(temporary_1)
+        if (str(temporary_1)[0] == "+") or (str(temporary_1)[0] == "-"):
+            temporary_1 = int(temporary_1[1:])
+        # print(temporary_1)
+        temps_day.append(temporary_1)
+
+        temporary_2 = temps[i].find('div', class_='mint').text
+        # print(temporary_2)
+        if (str(temporary_2)[0] == "+") or (str(temporary_2)[0] == "-"):
+            temporary_2 = int(temporary_2[1:])
+        temps_night.append(temporary_2)
+
         # print(temps[i].text.split('+'))
-        temps_day.append(temps[i].text.split('+')[1])
-        temps_night.append(temps[i].text.split('+')[2])
+        # temps_day.append(temps[i].text.split('+')[1])
+        # temps_night.append(temps[i].text.split('+')[2])
 
     for i in [0, 1, 2]:
         # формирование переменной для вывода в GUI
