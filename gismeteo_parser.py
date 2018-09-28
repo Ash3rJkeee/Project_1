@@ -100,7 +100,7 @@ def gismeteo_parser():
 
         temporary_2 = temps[i].find('div', class_='mint').text
         # print(temporary_2)
-        if (str(temporary_2)[0] == "+") or (str(temporary_2)[0] == "-"):
+        if str(temporary_2)[0] == "+":
             temporary_2 = int(temporary_2[1:])
         temps_night.append(temporary_2)
 

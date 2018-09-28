@@ -20,7 +20,11 @@ def yaParser():
     soup = BeautifulSoup(html, 'html.parser')
 
     # поиск тегов 'time' и 'span' нужных классов
-    days = soup.findAll('time', class_='time forecast-briefly-old__date')
+    days = soup.findAll('time', class_='time forecast-briefly__date')
+
+    # для случая изменения структуры сайта
+    if days == []:
+        days = soup.findAll('time', class_='time forecast-briefly-old__date')
     temps = soup.findAll('span', class_='temp__value')
 
     # отбрасывание лишних данных от результата парсинга
@@ -34,7 +38,7 @@ def yaParser():
 
     # проверка содержимого days и temps
     # for i in range(len(days)):
-    #     print(days[i].text)
+    #     print(days[i])
     #
     # for i in range(len(temps)):
     #     print(temps[i].text)
@@ -54,18 +58,27 @@ def yaParser():
     # print('Сегодня: ', today)
 
     for i in [0, 1, 2]:
+        # print(days[i])
         date.append(days[i].get('datetime'))
-        date[i] = date[i].split('+', 1)[:1]          # отбросить указание часового пояса
-        date[i] = str(date[i])[2:]                   # отбросить ['
-        date[i] = str(date[i])[:16]                  # отбросить ']
-        date[i] = datetime.datetime.strptime(str(date[i]), "%Y-%m-%d %H:%M")   # преобразование даты в формат даты
+        date[i] = date[i].split(' ')[0]          # отбросить указание часового пояса
+        # date[i] = str(date[i])[2:]                   # отбросить ['
+        # date[i] = str(date[i])[:16]                  # отбросить ']
+        date[i] = datetime.datetime.strptime(str(date[i]), "%Y-%m-%d")   # преобразование даты в формат даты
         # date[i] = date[i].date()                                              # модуля datetime
         temps_day.append(temps[i*2].text)          # разбиение на списки дневных и ночных температур
         temps_night.append(temps[i*2+1].text)        #
 
         # убирание знаков '+'
-        temps_day[i] = temps_day[i].split('+')[1]
-        temps_night[i] = temps_night[i].split('+')[1]
+        if temps_day[i][0] == "+":
+            temps_day[i] = temps_day[i][1:]
+
+        # temps_day[i] = float(temps_day[i])
+
+        if temps_night[i][0] == "+":
+            temps_night[i] = temps_night[i][1:]
+
+        # temps_night[i] = float(temps_night[i])
+
         # формирование переменной для вывода в GUI
         info.append(str(date[i].date()) + '  Тн ' + str(temps_night[i]) + '  Тд ' + str(temps_day[i]))
         print(info[i])

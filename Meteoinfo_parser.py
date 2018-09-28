@@ -96,6 +96,7 @@ def parser():
     # отсечение лишних символов, преобразование в число и вычисление средней максимальнй температуры за сутки период
     # (особенность meteoinfo.ru )
     for i in range(len(temps_day)):
+        # print(temps_day[i])
         temps_day[i] = temps_day[i].split('°')[0]
         temps_day[i] = (int(temps_day[i].split('..')[0]) + int(temps_day[i].split('..')[1]))/2
 

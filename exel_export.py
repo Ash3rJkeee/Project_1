@@ -1,3 +1,5 @@
+# coding: utf8
+
 import openpyxl
 import YaParser
 import gismeteo_parser
@@ -43,21 +45,46 @@ def export():
         print('Не сформирован массив загрузки. Запустите все парсеры.')
         raise FileExistsError('Не сформирован массив загрузки. Запустите все парсеры.')
 
-    # data1 = ['15', '24', '16', '22', '14.7', '25.0', '15', '25']
-    # data2 = ['16', '22', '13', '28', '12.7', '26.0', '14', '26']
+    # data1 = ['-15', '24', '16', 22, '14.7', '25.0', '15', '25']
+    # data2 = ['16', '22', '13', '28', '-12.7', '26.0', '14', '26']
     # data3 = ['11', '23', '13', '26', '15.7', '27.0', '14', '30']
 
-    print('*******************************************************')
-    print('Идет экспорт в файл')
     print(data1)
+    print(data2)
     print(data3)
+
+    print('*******************************************************')
+    print('Идет преобразование и экспорт в файл')
+
+    # преобразование не правильных "-"
+    for i in range(len(data1)):
+        if not str(data1[i])[0].isdigit():                           # если 1 символ знак тире и минус
+            data1[i] = float(str(data1[i][1:])) * (-1)                 # сменить знак
+        else:
+            data1[i] = float(data1[i])
+    print(data1)
+
+    for i in range(len(data2)):
+        if not str(data2[i])[0].isdigit():
+            data2[i] = float(str(data2[i][1:])) * (-1)
+        else:
+            data2[i] = float(data2[i])
+    print(data2)
+
+    for i in range(len(data3)):
+        if not str(data3[i])[0].isdigit():
+            data3[i] = float(str(data3[i][1:])) * (-1)
+        else:
+            data3[i] = float(data3[i])
+    print(data3)
+
+
 
     # file = r'Прогнозы.xlsx'
     file = r'\\tsk-fileserv-01.tsk-mosenergo.ru\ОИО\ТСК-Мосэнерго (АУ)\Центральная диспетчерская служба\Область обмена\ЦДС\Аналитика\Прогнозы.xlsx'
 
     wb = openpyxl.load_workbook(file)
     # wb_lists = wb.sheetnames
-    print(data2)
     # print(wb_lists)
     ws = wb[wb.sheetnames[0]]
     # print(type(ws.max_row))
@@ -105,19 +132,19 @@ def export():
 
     i = 0
     for col in range(3, 11):
-        ws.cell(row=forecast_1_day_row, column=col).value = float(data1[i])
+        ws.cell(row=forecast_1_day_row, column=col).value = data1[i]
         ws.cell(row=forecast_1_day_row, column=col).alignment = Alignment(horizontal="center", vertical="center") # выравнивание
         i = i + 1
 
     i = 0
     for col in range(11, 19):
-        ws.cell(row=forecast_2_days_row, column=col).value = float(data2[i])
+        ws.cell(row=forecast_2_days_row, column=col).value = data2[i]
         ws.cell(row=forecast_2_days_row, column=col).alignment = Alignment(horizontal="center", vertical="center") # выравнивание
         i = i + 1
 
     i = 0
     for col in range(19, 27):
-        ws.cell(row=forecast_3_days_row, column=col).value = float(data3[i])
+        ws.cell(row=forecast_3_days_row, column=col).value = data3[i]
         ws.cell(row=forecast_3_days_row, column=col).alignment = Alignment(horizontal="center", vertical="center") # выравнивание
         i = i + 1
 
