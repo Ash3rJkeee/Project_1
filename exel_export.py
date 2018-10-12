@@ -56,26 +56,29 @@ def export():
     print('*******************************************************')
     print('Идет преобразование и экспорт в файл')
 
-    # преобразование не правильных "-"
+    # преобразование не правильных "-" а так же преобразование к числам для excel
     for i in range(len(data1)):
-        if not str(data1[i])[0].isdigit():                           # если 1 символ знак тире и минус
-            data1[i] = float(str(data1[i][1:])) * (-1)                 # сменить знак
-        else:
-            data1[i] = float(data1[i])
+        if data1[i] != "ошибка":
+            if not str(data1[i])[0].isdigit():                           # если 1 символ знак тире и минус
+                data1[i] = float(str(data1[i][1:])) * (-1)                 # сменить знак
+            else:
+                data1[i] = float(data1[i])
     print(data1)
 
     for i in range(len(data2)):
-        if not str(data2[i])[0].isdigit():
-            data2[i] = float(str(data2[i][1:])) * (-1)
-        else:
-            data2[i] = float(data2[i])
+        if data2[i] != "ошибка":
+            if not str(data2[i])[0].isdigit():
+                data2[i] = float(str(data2[i][1:])) * (-1)
+            else:
+                data2[i] = float(data2[i])
     print(data2)
 
     for i in range(len(data3)):
-        if not str(data3[i])[0].isdigit():
-            data3[i] = float(str(data3[i][1:])) * (-1)
-        else:
-            data3[i] = float(data3[i])
+        if data3[i] != "ошибка":
+            if not str(data3[i])[0].isdigit():
+                data3[i] = float(str(data3[i][1:])) * (-1)
+            else:
+                data3[i] = float(data3[i])
     print(data3)
 
 
@@ -152,10 +155,30 @@ def export():
 
 
 if __name__ == '__main__':
-    YaParser.yaParser()
-    gismeteo_parser.gismeteo_parser()
-    Meteoinfo_parser.parser()
-    WeatherCom_parser.parser()
+    try:
+        YaParser.yaParser()
+    except:
+        for i in [0, 1, 2]:
+            YaParser.temps_night[i] = "ошибка"
+            YaParser.temps_day[i] = "ошибка"
+    try:
+        gismeteo_parser.gismeteo_parser()
+    except:
+        for i in [0, 1, 2]:
+            gismeteo_parser.temps_night[i] = "ошибка"
+            gismeteo_parser.temps_day[i] = "ошибка"
+    try:
+        Meteoinfo_parser.parser()
+    except:
+        for i in [0, 1, 2]:
+            Meteoinfo_parser.temps_night[i] = "ошибка"
+            Meteoinfo_parser.temps_day[i] = "ошибка"
+    try:
+        WeatherCom_parser.parser()
+    except:
+        for i in [0, 1, 2]:
+            WeatherCom_parser.temps_night[i] = "ошибка"
+            WeatherCom_parser.temps_day[i] = "ошибка"
     export()
 
     # todo сделать задержку закрытия консоли в течение 5 сек если не будет нажатия клавиатуры
