@@ -60,7 +60,7 @@ def export():
     for i in range(len(data1)):
         if data1[i] != "ошибка":
             if not str(data1[i])[0].isdigit():                           # если 1 символ знак тире и минус
-                data1[i] = float(str(data1[i][1:])) * (-1)                 # сменить знак
+                data1[i] = float(str(data1[i])[1:]) * (-1)                 # сменить знак
             else:
                 data1[i] = float(data1[i])
     print(data1)
@@ -68,7 +68,7 @@ def export():
     for i in range(len(data2)):
         if data2[i] != "ошибка":
             if not str(data2[i])[0].isdigit():
-                data2[i] = float(str(data2[i][1:])) * (-1)
+                data2[i] = float(str(data2[i])[1:]) * (-1)
             else:
                 data2[i] = float(data2[i])
     print(data2)
@@ -76,7 +76,7 @@ def export():
     for i in range(len(data3)):
         if data3[i] != "ошибка":
             if not str(data3[i])[0].isdigit():
-                data3[i] = float(str(data3[i][1:])) * (-1)
+                data3[i] = float(str(data3[i])[1:]) * (-1)
             else:
                 data3[i] = float(data3[i])
     print(data3)
