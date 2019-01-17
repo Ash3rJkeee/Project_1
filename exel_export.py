@@ -13,13 +13,16 @@ from openpyxl.styles import Alignment
 
 # todo Включить обработку
 
+
 def date_to_exel_format(day):
     return day.strftime('%d.%m.%Y')
+
 
 def raise_exel_date(string):
     """Увеличивает дату в формате Exel на 1 день"""
     a = datetime.datetime.strptime(string, "%d.%m.%Y") + datetime.timedelta(days=1)
     return a.strftime("%d.%m.%Y")
+
 
 def export():
     try:
@@ -117,7 +120,6 @@ def export():
             ws.cell(row=mark_row, column=2).alignment = Alignment(horizontal="center", vertical="center")     # выравнивание
 
     mark_row = mark_row - 2
-
 
 
     # задаем номера строчек для последующей записи

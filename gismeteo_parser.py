@@ -90,8 +90,17 @@ def gismeteo_parser():
 
     # отсечение знаков "+" и "-", распределение на ночные и дневные, отсев значений в цельсиях:
     for i in range(len(temps)):
-        # print(temps[i].text)
+
+        """проверка на случай, если разбега температур нету и один из объектов находится как None"""
         temporary_1 = temps[i].find('div', class_='maxt')
+        temporary_2 = temps[i].find('div', class_='mint')
+
+        if temporary_1 == None:
+            temporary_1 = temporary_2
+
+        if temporary_2 == None:
+            temporary_2 = temporary_1
+
         temporary_1 = temporary_1.find('span', class_='unit unit_temperature_c').text
         # print(temporary_1)
         if (str(temporary_1)[0] == "+") or (str(temporary_1)[0] == "-"):
@@ -99,7 +108,6 @@ def gismeteo_parser():
         # print(temporary_1)
         temps_day.append(temporary_1)
 
-        temporary_2 = temps[i].find('div', class_='mint')
         temporary_2 = temporary_2.find('span', class_='unit unit_temperature_c').text
         # print(temporary_2)
         if str(temporary_2)[0] == "+":
