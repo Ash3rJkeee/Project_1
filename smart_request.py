@@ -60,14 +60,15 @@ def get_html(url_get):
                 got_html = requests.get(url_get, timeout=10)
             else:
                 print('\nПодключение через прокси: ', picked_proxy)
-                got_html = requests.get(url_get, proxies={'https': picked_proxy}, timeout=10)
+                got_html = requests.get(url_get, proxies={'socks5://': picked_proxy}, timeout=10)
             # got_html = requests.get(url_get, proxies={'http': 'http://' + picked_proxy}, timeout=10)
         else:
             if 'picked_proxy' not in globals():
                 got_html = requests.get(url_get, headers={'User-Agent': picked_agent}, timeout=10)
             else:
                 print('\nПодключение через прокси: ', picked_proxy)
-                got_html = requests.get(url_get, headers={'User-Agent': picked_agent}, proxies={'https': picked_proxy}, timeout=10)
+                got_html = requests.get(url_get, headers={'User-Agent': picked_agent},
+                                        proxies={'socks5://': picked_proxy}, timeout=10)
     except requests.exceptions.ReadTimeout:
         """На случай, если конкретный прокси забанен на конкретном сайте"""
         print('Превышено время ожидания ответа')
@@ -95,33 +96,6 @@ def pick_proxy():
     print('--------------------------------------------------------------------------------------')
     print('Выбор прокси для подключения....')
 
-    # if ('proxies' not in globals()) or (proxies == []):
-    #     print("Получение списка прокси.....")
-    #     url_proxy_site = 'https://proxylist.me/?avalibity=90&protocol=&sort=-updated&filtrar=Filtrar&type=&city' \
-    #                      '__state__country__name='
-    #
-    #     html = get_html(url_proxy_site)
-    #     soup = BeautifulSoup(html, 'html.parser')
-    #
-    #     table = soup.find('table')
-    #     td = table.findAll('td', class_='ip')
-    #
-    #     # поиск значений прокси
-    #     proxies = []
-    #     for i in td:
-    #         proxies.append(i.text.strip())
-    #
-    #     # поиск значений портов
-    #     ports = []
-    #     for i in soup.findAll('td', class_='port'):
-    #         ports.append(i.text.strip())
-    #
-    #     # слияние ip и портов
-    #     for i in range(len(proxies)):
-    #         proxies[i] = proxies[i] + ":" + str(ports[i])
-    #         # print(proxies[i])
-    #     print('получено и записано ', len(proxies), 'адресов прокси')
-    #     rewrite_file_proxies()
     picked_proxy = proxies[0]
     print("Использованный новый прокси : ", picked_proxy)
     print()
@@ -173,10 +147,13 @@ def get_my_ip_and_user_agent():
     global picked_agent, picked_proxy, user_agents
     html = get_html('https://yandex.ru/internet/')
     soup = BeautifulSoup(html, 'html.parser')
-    my_ip = soup.find('span', class_='info__value info__value_type_ipv4').text
-    print('my ip: ', my_ip)
-    div_browser = soup.find('div', class_='info__group info__group_type_browser')
-    print(div_browser.text)
+
+    divs = soup.findAll("div", class_="list-info__renderer")
+    my_ip = divs[0].text
+    browser = divs[7].text
+
+    print("ip: ", my_ip)
+    print("Браузер: ", browser)
     return my_ip
 
 
