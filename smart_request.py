@@ -176,17 +176,17 @@ def connection_check():
     #     pick_user_agent()
     #     connection_check()
     #     print()
-    if my_ip == '193.104.149.167':
-        # Todo прописать проверку всей доменной зоны МОЭК 193.104.149.0-255
-        print('Некачественный пррокси. Reconnect.....')
-        sleep(uniform(2, 4))
-        # print('Смена прокси....')
-        # delete_proxie(picked_proxy)
-        pick_proxy()
-        print('Смена агента....')
-        pick_user_agent()
-        connection_check()
-        print()
+    # if my_ip == '193.104.149.167':
+    #     # Todo прописать проверку всей доменной зоны МОЭК 193.104.149.0-255
+    #     print('Некачественный пррокси. Reconnect.....')
+    #     sleep(uniform(2, 4))
+    #     # print('Смена прокси....')
+    #     # delete_proxie(picked_proxy)
+    #     pick_proxy()
+    #     print('Смена агента....')
+    #     pick_user_agent()
+    #     connection_check()
+    #     print()
 
 
 def smart_get_html(url):
