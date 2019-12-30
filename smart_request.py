@@ -163,7 +163,10 @@ def connection_check():
     print('Проверка свойств соединения....')
     my_ip = ''
     # try:
-    my_ip = get_my_ip_and_user_agent()
+
+    # my_ip = get_my_ip_and_user_agent()    пришлось отключить в попыхах спустя год нормальной работы скрипта,
+    # у яндекса что-то изменилось
+
     print('Соединение успешно.')
     checked = True
     # except:
