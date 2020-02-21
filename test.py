@@ -1,14 +1,9 @@
-import requests
-from bs4 import BeautifulSoup
+import datetime
 
-page = requests.get("https://yandex.ru/internet/")
-page = page.text
+a = "29 feb"
 
-soup = BeautifulSoup(page, "html.parser")
+a = datetime.datetime.strptime(a, '%d %b')
+a = a.replace(year=datetime.datetime.today().year)     # переприсвоение года
+a = str(a.date())
 
-divs = soup.findAll("div", class_="list-info__renderer")
-ip = divs[0].text
-browser = divs[7].text
-
-print(ip)
-print(browser)
+print(a)
