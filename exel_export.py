@@ -63,7 +63,7 @@ def export():
     # преобразование не правильных "-" а так же преобразование к числам для excel
     for i in range(len(data1)):
         if data1[i] != "ошибка":
-            if not str(data1[i])[0].isdigit():                           # если 1 символ знак тире и минус
+            if not str(data1[i])[0].isdigit():                           # если 1 символ знак тире вместо минуса
                 data1[i] = float(str(data1[i])[1:]) * (-1)                 # сменить знак
             else:
                 data1[i] = float(data1[i])
@@ -121,7 +121,6 @@ def export():
             ws.cell(row=mark_row, column=2).alignment = Alignment(horizontal="center", vertical="center")     # выравнивание
 
     mark_row = mark_row - 2
-
 
     # задаем номера строчек для последующей записи
     if date_to_exel_format(today) not in date_list_1:

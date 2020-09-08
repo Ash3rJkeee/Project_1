@@ -32,7 +32,7 @@ def transform_date(days):
             # print(month)
             days[i] = days[i].split(' ')[0]
         days[i] = days[i] + ' ' + month
-        print(days[i])
+        # print(days[i])
         if days[i] == "29 feb":
             days[i] = "2020-02-28"
         else:
